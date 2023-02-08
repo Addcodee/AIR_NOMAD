@@ -1,0 +1,35 @@
+.burgerMenu {
+  font-size: 10px;
+  background-color: white;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 1em;
+  position: absolute;
+  top: 7em;
+  right: 6em;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.burgerMenu span {
+  font-size: 1.4em;
+}
+
+.burgerMenu-item {
+  padding: 1em;
+  cursor: pointer;
+}
+
+.burgerMenu-item:hover {
+  background-color: rgba(232, 232, 232, 0.387);
+}
+
+.burgerMenu__auth {
+  display: flex;
+  flex-direction: column;
+  margin: 1em 0;
+}
+
+.burgerMenu__action {
+  display: flex;
+  flex-direction: column;
+  margin: 1em 0;
+}
