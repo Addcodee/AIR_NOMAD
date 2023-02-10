@@ -1,16 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap");
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: "Montserrat", sans-serif;
-}
-
-ul {
-  list-style-type: none;
-}
-
-/* .center {
+.center {
   min-height: 100vh;
   display: flex;
   align-items: start;
@@ -23,7 +11,7 @@ ul {
   width: 100%;
   border-radius: 12px;
   padding: 20px 30px 120px;
-  background: #4070f4;
+  background: #a3c6c4;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
   overflow: hidden;
 }
@@ -47,7 +35,9 @@ ul {
 .form header {
   font-size: 30px;
   text-align: center;
-  color: #fff;
+  color: white;
+  margin-bottom: 45px;
+
   font-weight: 600;
   cursor: pointer;
 }
@@ -68,14 +58,14 @@ ul {
   margin-top: 40px;
 }
 form input {
-  height: 60px;
+  height: 50px;
   outline: none;
   border: none;
   padding: 0 15px;
   font-size: 16px;
   font-weight: 400;
   color: #333;
-  border-radius: 8px;
+  border-radius: 15px;
   background: #fff;
 }
 .form.login input {
@@ -83,6 +73,21 @@ form input {
 }
 .form.login input:focus {
   box-shadow: 0 1px 0 #ddd;
+}
+form .checkbox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.checkbox input[type="checkbox"] {
+  height: 16px;
+  width: 16px;
+  accent-color: #fff;
+  cursor: pointer;
+}
+form .checkbox label {
+  cursor: pointer;
+  color: #fff;
 }
 form a {
   color: #333;
@@ -92,6 +97,7 @@ form a:hover {
   text-decoration: underline;
 }
 form input[type="submit"] {
+  color: rgba(44, 44, 44, 0.841);
   margin-top: 15px;
   padding: none;
   font-size: 18px;
@@ -99,7 +105,7 @@ form input[type="submit"] {
   cursor: pointer;
 }
 .form.login input[type="submit"] {
-  background: #4070f4;
+  background: #a3c6c4;
   color: #fff;
   border: none;
-} */
+}
