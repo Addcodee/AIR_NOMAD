@@ -5,17 +5,19 @@ import { GrLanguage } from "react-icons/gr";
 import { RxHamburgerMenu } from "react-icons/rx";
 import BurgerMenu from "../../components/BurgerMenu/BurgerMenu";
 import { useNavigate } from "react-router";
+import { lang, setLang } from "../../contexts/Language";
 
 const Navbar = () => {
   const [menu, setMenu] = useState(false);
   const navigate = useNavigate();
+
   return (
     <div className="navbar">
       <div className="navbar-top">
         <div onClick={() => navigate("/")} className="navbar__logo">
           <span>AIR NOMAD</span>
         </div>
-        <div className="navbar__search"></div>
+        <div className="navbar__search">GET STARTED</div>
         <div className="navbar__auth">
           <div className="navbar__auth-language">
             <GrLanguage style={{ width: "2em", height: "2em" }} />

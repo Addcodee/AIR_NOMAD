@@ -1,4 +1,11 @@
+.navbar {
+  position: fixed;
+  width: 100%;
+  z-index: 2;
+}
+
 .navbar-top {
+  background-color: white;
   font-size: 10px;
   padding: 1.5em 6em;
   border-top: 1px solid black;
@@ -15,11 +22,16 @@
 
 .navbar__search {
   width: 30%;
-  height: 4em;
+  padding: 0.5em;
   border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 5em;
   box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.2);
   transition: 0.3s;
+  font-size: 2em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
 }
 
 .navbar__search:hover {
@@ -58,4 +70,5 @@
 .navbar__auth-avatar {
   width: 3.5em;
   height: 3.5em;
+  border-radius: 50%;
 }

@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 
 const CreateHomePage = () => {
-  return <div>CreateHomePage</div>;
+  return <div></div>;
 };
 
 export default CreateHomePage;
