@@ -1,7 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
+import AddProduct from "../../components/BurgerMenu/Products/AddProduct";
 
 const CreateHomePage = () => {
-  return <div></div>;
+  return (
+    <div>
+      <AddProduct />
+    </div>
+  );
 };
 
 export default CreateHomePage;

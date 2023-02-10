@@ -4,7 +4,7 @@ import Header from "../../containers/Header/Header";
 const HomePage = () => {
   return (
     <div>
-      {/* <Header /> */}
+      <Header />
     </div>
   );
 };
