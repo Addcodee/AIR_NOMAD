@@ -20,13 +20,8 @@ const Navbar = () => {
           <div className="navbar__auth-language">
             <GrLanguage style={{ width: "2em", height: "2em" }} />
           </div>
-          <div
-            onClick={() => setMenu(!menu)}
-            className="navbar__auth-menu"
-          >
-            <RxHamburgerMenu
-              style={{ width: "2em", height: "2em" }}
-            />
+          <div onClick={() => setMenu(!menu)} className="navbar__auth-menu">
+            <RxHamburgerMenu style={{ width: "2em", height: "2em" }} />
             <img
               className="navbar__auth-avatar"
               src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/1200px-Default_pfp.svg.png"
