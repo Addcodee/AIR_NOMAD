@@ -1,9 +1,10 @@
 import { Paper } from "@mui/material";
 import React, { useState } from "react";
 import "./Navbar.css";
-import { GrLanguage } from "react-icons/gr";
+import { MdLanguage } from "react-icons/md";
 import { RxHamburgerMenu } from "react-icons/rx";
-import BurgerMenu from "../../components/BurgerMenu/BurgerMenu";
+import { TbTent } from "react-icons/tb";
+import BurgerMenu from "../BurgerMenu/BurgerMenu";
 import { useNavigate } from "react-router";
 import { useProduct } from "../../contexts/ProductContextProvider";
 
@@ -16,13 +17,20 @@ const Navbar = () => {
   return (
     <div className="navbar">
       <div className="navbar-top">
-        <div onClick={() => navigate("/")} className="navbar__logo">
+        <div
+          onClick={() => navigate("/")}
+          className="navbar__container-logo"
+        >
+          <TbTent className="navbar__logo" />
           <span>AIR NOMAD</span>
         </div>
         <div className="navbar__search">GET STARTED</div>
         <div className="navbar__auth">
-          <div onClick={() => setLang(!lang)} className="navbar__auth-language">
-            <GrLanguage style={{ width: "2em", height: "2em" }} />
+          <div
+            onClick={() => setLang(!lang)}
+            className="navbar__auth-language"
+          >
+            <MdLanguage style={{ width: "2em", height: "2em" }} />
           </div>
           <div
             onClick={() => setMenu(!menu)}
