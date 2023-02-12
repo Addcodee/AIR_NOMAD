@@ -39,7 +39,7 @@ const BurgerMenu = () => {
         <div className="burgerMenu-item">
           <span>Помощь</span>
         </div>
-        <div onClick={() => setLang(!lang)} className="burgerMenu-item">
+        <div id="lang__toggle" onClick={() => setLang(!lang)} className="burgerMenu-item">
           <span>{lang ? 'Language: english' : 'Язык: русский'}</span>
         </div>
       </div>
