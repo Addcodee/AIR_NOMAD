@@ -1,5 +1,5 @@
 import { Paper } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./Navbar.css";
 import { MdLanguage } from "react-icons/md";
 import { RxHamburgerMenu } from "react-icons/rx";
@@ -9,10 +9,19 @@ import { useNavigate } from "react-router";
 import { useProduct } from "../../contexts/ProductContextProvider";
 
 const Navbar = () => {
-  const [menu, setMenu] = useState(false);
-  const navigate = useNavigate();
-
   const { lang, setLang } = useProduct();
+  const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
+  const menuRef = useRef();
+
+  useEffect(() => {
+    let handler = (e) => {
+      if (!menuRef.current.contains(e.target)) {
+        setOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handler);
+  });
 
   return (
     <div className="navbar">
@@ -25,7 +34,7 @@ const Navbar = () => {
           <span>AIR NOMAD</span>
         </div>
         <div className="navbar__search">GET STARTED</div>
-        <div className="navbar__auth">
+        <div ref={menuRef} className="navbar__auth">
           <div
             onClick={() => setLang(!lang)}
             className="navbar__auth-language"
@@ -33,19 +42,14 @@ const Navbar = () => {
             <MdLanguage style={{ width: "2em", height: "2em" }} />
           </div>
           <div
-            onClick={() => setMenu(!menu)}
+            onClick={() => setOpen(!open)}
             className="navbar__auth-menu"
           >
             <RxHamburgerMenu
               style={{ width: "2em", height: "2em" }}
             />
-            <img
-              className="navbar__auth-avatar"
-              src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/1200px-Default_pfp.svg.png"
-              alt="avatar"
-            />
           </div>
-          {menu ? <BurgerMenu /> : null}
+          {open ? <BurgerMenu /> : null}
         </div>
       </div>
       <div className="navbar-bottom"></div>
