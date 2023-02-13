@@ -9,10 +9,7 @@ const BurgerMenu = () => {
   return (
     <div className="burgerMenu">
       <div className="burgerMenu__auth">
-        <div
-          onClick={() => navigate("/register")}
-          className="burgerMenu-item"
-        >
+        <div onClick={() => navigate("/login")} className="burgerMenu-item">
           <span>Войти</span>
         </div>
       </div>
@@ -21,10 +18,7 @@ const BurgerMenu = () => {
         <div id="start__page" className="burgerMenu-item">
           <span>GET STARTED</span>
         </div>
-        <div
-          onClick={() => navigate("/homes")}
-          className="burgerMenu-item"
-        >
+        <div onClick={() => navigate("/homes")} className="burgerMenu-item">
           <span>Сдать жилье на AirNomad</span>
         </div>
         <div className="burgerMenu-item">

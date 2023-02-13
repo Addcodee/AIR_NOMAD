@@ -9,6 +9,8 @@ const ProductList = () => {
     getProducts();
   }, []);
 
+  console.log(products);
+
   return (
     <div
       style={{
@@ -17,9 +19,9 @@ const ProductList = () => {
         padding: "3rem",
       }}
     >
-      {products.map((item) => (
+      {/* {products.map((item) => (
         <ProductCard item={item} key={item.id} />
-      ))}
+      ))} */}
     </div>
   );
 };

@@ -5,11 +5,12 @@ import { useNavigate } from "react-router-dom";
 export const productContext = createContext();
 export const useProduct = () => useContext(productContext);
 
-const API = "http://34.173.115.25/api/v1";
+const API = "http://34.95.167.109/api/v1";
 
 const INIT_STATE = {
   products: [],
   categories: [],
+  coutries: [],
   oneProduct: null,
 };
 
@@ -18,11 +19,13 @@ function reducer(state = INIT_STATE, action) {
     case "GET_PRODUCTS":
       return {
         ...state,
-        products: action.payload.results, // если не будет работать , удалить results
+        products: action.payload, // если не будет работать , удалить results
       };
 
     case "GET_CATEGORIES":
-      return { ...state, types: action.payload };
+      return { ...state, categories: action.payload };
+    case "GET_COUNTRIES":
+      return { ...state, coutries: action.payload };
 
     case "GET_ONE_PRODUCT":
       return {
@@ -38,9 +41,23 @@ function reducer(state = INIT_STATE, action) {
 const ProductContextProvider = ({ children }) => {
   const [lang, setLang] = useState(false);
 
+  const [guestCount, setGuestCount] = useState(1);
+
   const navigate = useNavigate();
 
   const [state, dispatch] = useReducer(reducer, INIT_STATE);
+
+  const incrementGuestCount = () => {
+    if (guestCount < 10) {
+      setGuestCount(guestCount + 1);
+    }
+  };
+
+  const decrementGuestCount = () => {
+    if (guestCount > 1) {
+      setGuestCount(guestCount - 1);
+    }
+  };
 
   const getProducts = async () => {
     try {
@@ -54,7 +71,7 @@ const ProductContextProvider = ({ children }) => {
       //   };
 
       const res = await axios.get(
-        `${API}/products/${window.location.search}`
+        `${API}/products/`
         // config
       );
 
@@ -69,83 +86,21 @@ const ProductContextProvider = ({ children }) => {
 
   const getCategories = async () => {
     try {
-      const tokens = JSON.parse(localStorage.getItem("tokens"));
-      const Authorization = `Bearer ${tokens.access}`;
+      // const tokens = JSON.parse(localStorage.getItem("tokens"));
+      // const Authorization = `Bearer ${tokens.access}`;
 
-      const config = {
-        headers: {
-          Authorization,
-        },
-      };
+      // const config = {
+      //   headers: {
+      //     Authorization,
+      //   },
+      // };
 
-      const res = await axios.get(`${API}/type/list/`, config);
+      const res = await axios.get(
+        `${API}/categories/`
+        // config
+      );
       dispatch({
         type: "GET_CATEGORIES",
-        payload: res.data.results,
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  //! CREATE
-
-  const createProduct = async (newProduct) => {
-    try {
-      const tokens = JSON.parse(localStorage.getItem("tokens"));
-      const Authorization = `Bearer ${tokens.access}`;
-
-      const config = {
-        headers: {
-          Authorization,
-        },
-      };
-
-      const res = await axios.post(`${API}/products/`, newProduct, config);
-      navigate("/products");
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  //! DELETE
-
-  const deleteProduct = async (id) => {
-    try {
-      const tokens = JSON.parse(localStorage.getItem("tokens"));
-      const Authorization = `Bearer ${tokens.access}`;
-
-      const config = {
-        headers: {
-          Authorization,
-        },
-      };
-
-      await axios.delete(`${API}/products/${id}/`, config);
-
-      getProducts();
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  //! GET ONE PRODUCT
-
-  const getOneProduct = async (id) => {
-    try {
-      const tokens = JSON.parse(localStorage.getItem("tokens"));
-      const Authorization = `Bearer ${tokens.access}`;
-
-      const config = {
-        headers: {
-          Authorization,
-        },
-      };
-
-      let res = await axios.get(`${API}/products/${id}/`, config);
-
-      dispatch({
-        type: "GET_ONE_PRODUCT",
         payload: res.data,
       });
     } catch (error) {
@@ -153,49 +108,142 @@ const ProductContextProvider = ({ children }) => {
     }
   };
 
-  //! UPDATE PRODUCT
+  // const getCoutries = async () => {
+  //   try {
+  //     // const tokens = JSON.parse(localStorage.getItem("tokens"));
+  //     // const Authorization = `Bearer ${tokens.access}`;
 
-  const updateProduct = async (id, editedProduct) => {
-    try {
-      const tokens = JSON.parse(localStorage.getItem("tokens"));
-      const Authorization = `Bearer ${tokens.access}`;
+  //     // const config = {
+  //     //   headers: {
+  //     //     Authorization,
+  //     //   },
+  //     // };
 
-      const config = {
-        headers: {
-          Authorization,
-        },
-      };
+  //     const res = await axios.get(
+  //       `${API}/categories/`
+  //       // config
+  //     );
+  //     dispatch({
+  //       type: "GET_CATEGORIES",
+  //       payload: res.data,
+  //     });
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
-      let res = await axios.patch(
-        `${API}/products/${id}/`,
-        editedProduct,
-        config
-      );
+  //! CREATE
 
-      navigate("/products");
-      console.log(res);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // const createProduct = async (newProduct) => {
+  //   try {
+  //     const tokens = JSON.parse(localStorage.getItem("tokens"));
+  //     const Authorization = `Bearer ${tokens.access}`;
+
+  //     const config = {
+  //       headers: {
+  //         Authorization,
+  //       },
+  //     };
+
+  //     const res = await axios.post(`${API}/products/`, newProduct, config);
+  //     navigate("/products");
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
+  // //! DELETE
+
+  // const deleteProduct = async (id) => {
+  //   try {
+  //     const tokens = JSON.parse(localStorage.getItem("tokens"));
+  //     const Authorization = `Bearer ${tokens.access}`;
+
+  //     const config = {
+  //       headers: {
+  //         Authorization,
+  //       },
+  //     };
+
+  //     await axios.delete(`${API}/products/${id}/`, config);
+
+  //     getProducts();
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
+  // //! GET ONE PRODUCT
+
+  // const getOneProduct = async (id) => {
+  //   try {
+  //     const tokens = JSON.parse(localStorage.getItem("tokens"));
+  //     const Authorization = `Bearer ${tokens.access}`;
+
+  //     const config = {
+  //       headers: {
+  //         Authorization,
+  //       },
+  //     };
+
+  //     let res = await axios.get(`${API}/products/${id}/`, config);
+
+  //     dispatch({
+  //       type: "GET_ONE_PRODUCT",
+  //       payload: res.data,
+  //     });
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
+  // //! UPDATE PRODUCT
+
+  // const updateProduct = async (id, editedProduct) => {
+  //   try {
+  //     const tokens = JSON.parse(localStorage.getItem("tokens"));
+  //     const Authorization = `Bearer ${tokens.access}`;
+
+  //     const config = {
+  //       headers: {
+  //         Authorization,
+  //       },
+  //     };
+
+  //     let res = await axios.patch(
+  //       `${API}/products/${id}/`,
+  //       editedProduct,
+  //       config
+  //     );
+
+  //     navigate("/products");
+  //     console.log(res);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   const values = {
     getProducts,
     products: state.products,
-    pages: state.pages,
+    // pages: state.pages,
 
     getCategories,
-    types: state.categories,
+    categories: state.categories,
 
-    createProduct,
-    deleteProduct,
+    // createProduct,
+    // deleteProduct,
 
-    getOneProduct,
-    oneProduct: state.oneProduct,
-    updateProduct,
+    // getOneProduct,
+    // oneProduct: state.oneProduct,
+    // updateProduct,
 
     lang,
     setLang,
+
+    incrementGuestCount,
+    decrementGuestCount,
+    guestCount,
   };
 
   return (
