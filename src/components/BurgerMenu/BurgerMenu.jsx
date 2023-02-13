@@ -9,16 +9,7 @@ const BurgerMenu = () => {
   return (
     <div className="burgerMenu">
       <div className="burgerMenu__auth">
-        <div
-          onClick={() => navigate("/register")}
-          className="burgerMenu-item"
-        >
-          <span>Зарегистрироваться</span>
-        </div>
-        <div
-          onClick={() => navigate("/login")}
-          className="burgerMenu-item"
-        >
+        <div onClick={() => navigate("/login")} className="burgerMenu-item">
           <span>Войти</span>
         </div>
       </div>
@@ -27,10 +18,7 @@ const BurgerMenu = () => {
         <div id="start__page" className="burgerMenu-item">
           <span>GET STARTED</span>
         </div>
-        <div
-          onClick={() => navigate("/homes")}
-          className="burgerMenu-item"
-        >
+        <div onClick={() => navigate("/homes")} className="burgerMenu-item">
           <span>Сдать жилье на AirNomad</span>
         </div>
         <div className="burgerMenu-item">
@@ -39,8 +27,12 @@ const BurgerMenu = () => {
         <div className="burgerMenu-item">
           <span>Помощь</span>
         </div>
-        <div id="lang__toggle" onClick={() => setLang(!lang)} className="burgerMenu-item">
-          <span>{lang ? 'Language: english' : 'Язык: русский'}</span>
+        <div
+          id="lang__toggle"
+          onClick={() => setLang(!lang)}
+          className="burgerMenu-item"
+        >
+          <span>{lang ? "Language: english" : "Язык: русский"}</span>
         </div>
       </div>
     </div>

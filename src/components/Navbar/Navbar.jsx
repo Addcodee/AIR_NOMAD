@@ -33,7 +33,7 @@ const Navbar = () => {
           <TbTent className="navbar__logo" />
           <span>AIR NOMAD</span>
         </div>
-        <div className="navbar__search">GET STARTED</div>
+        <div onClick={() => navigate('/houses')} className="navbar__search">GET STARTED</div>
         <div ref={menuRef} className="navbar__auth">
           <div
             onClick={() => setLang(!lang)}

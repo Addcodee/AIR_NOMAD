@@ -5,11 +5,12 @@ import { useNavigate } from "react-router-dom";
 export const productContext = createContext();
 export const useProduct = () => useContext(productContext);
 
-const API = "http://34.95.167.109/api/v1/";
+const API = "http://34.95.167.109/api/v1";
 
 const INIT_STATE = {
   products: [],
   categories: [],
+  coutries: [],
   oneProduct: null,
 };
 
@@ -18,11 +19,13 @@ function reducer(state = INIT_STATE, action) {
     case "GET_PRODUCTS":
       return {
         ...state,
-        products: action.payload.results, // если не будет работать , удалить results
+        products: action.payload, // если не будет работать , удалить results
       };
 
     case "GET_CATEGORIES":
-      return { ...state, types: action.payload };
+      return { ...state, categories: action.payload };
+    case "GET_COUNTRIES":
+      return { ...state, coutries: action.payload };
 
     case "GET_ONE_PRODUCT":
       return {
@@ -38,9 +41,23 @@ function reducer(state = INIT_STATE, action) {
 const ProductContextProvider = ({ children }) => {
   const [lang, setLang] = useState(false);
 
+  const [guestCount, setGuestCount] = useState(1);
+
   const navigate = useNavigate();
 
   const [state, dispatch] = useReducer(reducer, INIT_STATE);
+
+  const incrementGuestCount = () => {
+    if (guestCount < 10) {
+      setGuestCount(guestCount + 1);
+    }
+  };
+
+  const decrementGuestCount = () => {
+    if (guestCount > 1) {
+      setGuestCount(guestCount - 1);
+    }
+  };
 
   const getProducts = async () => {
     try {
@@ -54,7 +71,7 @@ const ProductContextProvider = ({ children }) => {
       //   };
 
       const res = await axios.get(
-        `${API}/products/${window.location.search}`
+        `${API}/products/`
         // config
       );
 
@@ -84,12 +101,36 @@ const ProductContextProvider = ({ children }) => {
       );
       dispatch({
         type: "GET_CATEGORIES",
-        payload: res.data.results,
+        payload: res.data,
       });
     } catch (error) {
       console.log(error);
     }
   };
+
+  // const getCoutries = async () => {
+  //   try {
+  //     // const tokens = JSON.parse(localStorage.getItem("tokens"));
+  //     // const Authorization = `Bearer ${tokens.access}`;
+
+  //     // const config = {
+  //     //   headers: {
+  //     //     Authorization,
+  //     //   },
+  //     // };
+
+  //     const res = await axios.get(
+  //       `${API}/categories/`
+  //       // config
+  //     );
+  //     dispatch({
+  //       type: "GET_CATEGORIES",
+  //       payload: res.data,
+  //     });
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   //! CREATE
 
@@ -199,6 +240,10 @@ const ProductContextProvider = ({ children }) => {
 
     lang,
     setLang,
+
+    incrementGuestCount,
+    decrementGuestCount,
+    guestCount,
   };
 
   return (

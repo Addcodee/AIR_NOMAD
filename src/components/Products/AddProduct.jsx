@@ -1,10 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useProduct } from "../../contexts/ProductContextProvider";
 
 const AddProduct = () => {
-  const { createProduct } = useProduct();
+  const {
+    getCategories,
+    categories,
+    createProduct,
+    incrementGuestCount,
+    decrementGuestCount,
+    guestCount,
+  } = useProduct();
 
-  const [type, setType] = useState("");
+  useEffect(() => {
+    getCategories();
+  }, []);
+
+  console.log(categories);
+
+  const [category, setCategory] = useState("");
 
   // дом , ферма ...
   const [country, setCountry] = useState("");
@@ -27,26 +40,9 @@ const AddProduct = () => {
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
 
-  // console.log(
-  //   type,
-  //   country,
-  //   name,
-  //   street,
-  //   houseNumber,
-  //   city,
-
-  //   guest,
-  //   bed,
-  //   bedroom,
-  //   bathroom,
-
-  //   img1,
-  //   img2
-  // );
-
   function handleSave() {
     let newProduct = new FormData();
-    newProduct.append("type", type);
+    newProduct.append("category", category);
     newProduct.append("country", country);
     newProduct.append("name", name);
     newProduct.append("street", street);
@@ -76,18 +72,45 @@ const AddProduct = () => {
         margin: "auto",
       }}
     >
-      <input
-        onChange={(e) => setType(e.target.value)}
-        style={{ marginBottom: "1rem", padding: "1rem", marginTop: "1rem" }}
-        type="text"
-        placeholder="type"
-      />
+      <select
+        style={{ marginBottom: "1rem", padding: "1rem" }}
+        value={category}
+        onChange={(e) => setCategory(e.target.value)}
+      >
+        <option style={{ marginBottom: "1rem", padding: "1rem" }} value="">
+          choose category
+        </option>
+
+        {categories.map((item) => (
+          <option key={item.slug} value={item.slug}>
+            {item.name}
+          </option>
+        ))}
+      </select>
+
       <input
         onChange={(e) => setCountry(e.target.value)}
         style={{ marginBottom: "1rem", padding: "1rem" }}
         type="text"
         placeholder="country"
       />
+
+      {/* <select
+        style={{ marginBottom: "1rem", padding: "1rem" }}
+        value={country}
+        onChange={(e) => setCountry(e.target.value)}
+      >
+        <option style={{ marginBottom: "1rem", padding: "1rem" }} value="">
+          choose country
+        </option>
+
+        {country.map((item) => (
+          <option key={item.slug} value={item.slug}>
+            {item.name}
+          </option>
+        ))}
+      </select> */}
+
       <input
         onChange={(e) => setName(e.target.value)}
         style={{ marginBottom: "1rem", padding: "1rem" }}
@@ -114,30 +137,31 @@ const AddProduct = () => {
         placeholder="city"
       />
 
-      <input
+      {/* <input
         onChange={(e) => setGuest(e.target.value)}
         style={{ marginBottom: "1rem", padding: "1rem" }}
         type="text"
         placeholder="guests"
-      />
-      <input
-        onChange={(e) => setBedroom(e.target.value)}
-        style={{ marginBottom: "1rem", padding: "1rem" }}
-        type="text"
-        placeholder="bedroom"
-      />
-      <input
-        onChange={(e) => setBed(e.target.value)}
-        style={{ marginBottom: "1rem", padding: "1rem" }}
-        type="text"
-        placeholder="bed"
-      />
-      <input
-        onChange={(e) => setBathroom(e.target.value)}
-        style={{ marginBottom: "1rem", padding: "1rem" }}
-        type="text"
-        placeholder="bathroom"
-      />
+      /> */}
+      <div>
+        <p>guests</p>
+        <button onClick={decrementGuestCount}>-</button>
+        {guestCount}
+        <button onClick={incrementGuestCount}>+</button>
+      </div>
+      <div>
+        <p>bedrooms</p>
+        <button>-</button>1<button>+</button>
+      </div>
+      <div>
+        <p>beds</p>
+        <button>-</button>1<button>+</button>
+      </div>
+      <div>
+        <p>bathrooms</p>
+        <button>-</button>1<button>+</button>
+      </div>
+
       <input
         onChange={(e) => setDescription(e.target.value)}
         style={{ marginBottom: "1rem", padding: "1rem" }}
