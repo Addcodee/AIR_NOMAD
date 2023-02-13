@@ -1,5 +1,5 @@
 import React from "react";
-import AddProduct from "../../components/BurgerMenu/Products/AddProduct";
+import AddProduct from "../../components/Products/AddProduct";
 
 const CreateHomePage = () => {
   return (
