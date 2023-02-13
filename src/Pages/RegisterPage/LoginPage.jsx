@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./RegisterPage.css";
 import { SlUser } from "react-icons/sl";
 
-const RegisterPage = () => {
+const LoginPage = () => {
   const [toggle, setToggle] = useState(false);
   return (
     <div className="center">
@@ -32,4 +32,4 @@ const RegisterPage = () => {
   );
 };
 
-export default RegisterPage;
+export default LoginPage;
