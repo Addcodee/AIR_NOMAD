@@ -13,12 +13,6 @@ const BurgerMenu = () => {
           onClick={() => navigate("/register")}
           className="burgerMenu-item"
         >
-          <span>Зарегистрироваться</span>
-        </div>
-        <div
-          onClick={() => navigate("/login")}
-          className="burgerMenu-item"
-        >
           <span>Войти</span>
         </div>
       </div>
@@ -39,8 +33,12 @@ const BurgerMenu = () => {
         <div className="burgerMenu-item">
           <span>Помощь</span>
         </div>
-        <div id="lang__toggle" onClick={() => setLang(!lang)} className="burgerMenu-item">
-          <span>{lang ? 'Language: english' : 'Язык: русский'}</span>
+        <div
+          id="lang__toggle"
+          onClick={() => setLang(!lang)}
+          className="burgerMenu-item"
+        >
+          <span>{lang ? "Language: english" : "Язык: русский"}</span>
         </div>
       </div>
     </div>

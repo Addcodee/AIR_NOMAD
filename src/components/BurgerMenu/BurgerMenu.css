@@ -38,7 +38,7 @@
   display: none;
 }
 
-#lang__toggle{
+#lang__toggle {
   display: none;
 }
 
@@ -50,6 +50,9 @@
 
 @media screen and (max-width: 768px) {
   #start__page {
+    display: block;
+  }
+  #lang__toggle {
     display: block;
   }
 }
