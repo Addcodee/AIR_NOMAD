@@ -27,23 +27,6 @@ const AddProduct = () => {
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
 
-  // console.log(
-  //   type,
-  //   country,
-  //   name,
-  //   street,
-  //   houseNumber,
-  //   city,
-
-  //   guest,
-  //   bed,
-  //   bedroom,
-  //   bathroom,
-
-  //   img1,
-  //   img2
-  // );
-
   function handleSave() {
     let newProduct = new FormData();
     newProduct.append("type", type);
@@ -78,7 +61,11 @@ const AddProduct = () => {
     >
       <input
         onChange={(e) => setType(e.target.value)}
-        style={{ marginBottom: "1rem", padding: "1rem", marginTop: "1rem" }}
+        style={{
+          marginBottom: "1rem",
+          padding: "1rem",
+          marginTop: "1rem",
+        }}
         type="text"
         placeholder="type"
       />

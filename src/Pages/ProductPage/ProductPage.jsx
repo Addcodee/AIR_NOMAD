@@ -1,12 +1,10 @@
 import React from "react";
-import ProductList from "../../components/BurgerMenu/Products/ProductList";
+import ProductList from "../../components/Products/ProductList";
 
 const ProductPage = () => {
-  return (
-    <div>
-      <ProductList />
-    </div>
-  );
+  return <div>
+    <ProductList />
+    </div>;
 };
 
 export default ProductPage;
