@@ -1,6 +1,9 @@
 import React, { useState } from "react";
+import { useProduct } from "../../contexts/ProductContextProvider";
 
 const AddProduct = () => {
+  const { createProduct } = useProduct();
+
   const [type, setType] = useState("");
 
   // дом , ферма ...
@@ -23,22 +26,23 @@ const AddProduct = () => {
 
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
-  console.log(
-    type,
-    country,
-    name,
-    street,
-    houseNumber,
-    city,
 
-    // guest,
-    // bed,
-    // bedroom,
-    // bathroom,
+  // console.log(
+  //   type,
+  //   country,
+  //   name,
+  //   street,
+  //   houseNumber,
+  //   city,
 
-    img1,
-    img2
-  );
+  //   guest,
+  //   bed,
+  //   bedroom,
+  //   bathroom,
+
+  //   img1,
+  //   img2
+  // );
 
   function handleSave() {
     let newProduct = new FormData();
@@ -60,7 +64,7 @@ const AddProduct = () => {
     newProduct.append("description", description);
     newProduct.append("price", price);
 
-    console.log(newProduct);
+    createProduct(newProduct);
   }
 
   return (
