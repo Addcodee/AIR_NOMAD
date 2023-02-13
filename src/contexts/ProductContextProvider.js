@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { createContext, useContext, useReducer } from "react";
+import React, { createContext, useContext, useReducer, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export const productContext = createContext();
@@ -36,6 +36,8 @@ function reducer(state = INIT_STATE, action) {
 }
 
 const ProductContextProvider = ({ children }) => {
+  const [lang, setLang] = useState(false);
+
   const navigate = useNavigate();
 
   const [state, dispatch] = useReducer(reducer, INIT_STATE);
@@ -191,7 +193,11 @@ const ProductContextProvider = ({ children }) => {
     getOneProduct,
     oneProduct: state.oneProduct,
     updateProduct,
+
+    lang,
+    setLang,
   };
+
   return (
     <productContext.Provider value={values}>{children}</productContext.Provider>
   );
