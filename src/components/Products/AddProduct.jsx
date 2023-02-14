@@ -15,8 +15,6 @@ const AddProduct = () => {
     getCategories();
   }, []);
 
-  console.log(categories);
-
   const [category, setCategory] = useState("");
 
   // дом , ферма ...
@@ -36,6 +34,13 @@ const AddProduct = () => {
   const [img3, setImg3] = useState("");
   const [img4, setImg4] = useState("");
   const [img5, setImg5] = useState("");
+
+  const checkFoto = (e) => {
+    const files = e.target.files;
+    const arr = Array.from(files);
+    const mapped = arr.map((file) => URL.createObjectURL(file));
+    setImg1(mapped);
+  };
 
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
@@ -77,7 +82,10 @@ const AddProduct = () => {
         value={category}
         onChange={(e) => setCategory(e.target.value)}
       >
-        <option style={{ marginBottom: "1rem", padding: "1rem" }} value="">
+        <option
+          style={{ marginBottom: "1rem", padding: "1rem" }}
+          value=""
+        >
           choose category
         </option>
 
@@ -176,18 +184,17 @@ const AddProduct = () => {
       />
 
       <input
+        multiple
         accept="image/*"
         style={{ marginBottom: "1rem" }}
-        onChange={(e) => {
-          setImg1(e.target.files[0]);
-          setImg2(e.target.files[1]);
-          setImg3(e.target.files[2]);
-          setImg4(e.target.files[3]);
-          setImg5(e.target.files[4]);
-        }}
+        onChange={checkFoto}
         type="file"
         placeholder="img"
       />
+
+      {img1?.map((img) => (
+        <img key={img} src={img} alt="" />
+      ))}
 
       <button onClick={handleSave} style={{ padding: "1rem" }}>
         Add Product
