@@ -42,10 +42,15 @@ const ProductContextProvider = ({ children }) => {
   const [lang, setLang] = useState(false);
 
   const [guestCount, setGuestCount] = useState(1);
+  const [bedroomsCount, setBedroomsCount] = useState(1);
+  const [bedsCount, setBedsCount] = useState(1);
+  const [bathroomsCount, setBathroomsCount] = useState(1);
 
   const navigate = useNavigate();
 
   const [state, dispatch] = useReducer(reducer, INIT_STATE);
+
+  // для изменения стейтов на кол-во гостей, спален, кроватей, ванных
 
   const incrementGuestCount = () => {
     if (guestCount < 10) {
@@ -56,6 +61,42 @@ const ProductContextProvider = ({ children }) => {
   const decrementGuestCount = () => {
     if (guestCount > 1) {
       setGuestCount(guestCount - 1);
+    }
+  };
+
+  const incrementBedroomsCount = () => {
+    if (bedroomsCount < 10) {
+      setBedroomsCount(bedroomsCount + 1);
+    }
+  };
+
+  const decrementBedroomsCount = () => {
+    if (bedroomsCount > 1) {
+      setBedroomsCount(bedroomsCount - 1);
+    }
+  };
+
+  const incrementBedsCount = () => {
+    if (bedsCount < 10) {
+      setBedsCount(bedsCount + 1);
+    }
+  };
+
+  const decrementBedsCount = () => {
+    if (bedsCount > 1) {
+      setBedsCount(bedsCount - 1);
+    }
+  };
+
+  const incrementBathroomsCount = () => {
+    if (bathroomsCount < 10) {
+      setBathroomsCount(bathroomsCount + 1);
+    }
+  };
+
+  const decrementBathroomsCount = () => {
+    if (bathroomsCount > 1) {
+      setBathroomsCount(bathroomsCount - 1);
     }
   };
 
@@ -244,6 +285,18 @@ const ProductContextProvider = ({ children }) => {
     incrementGuestCount,
     decrementGuestCount,
     guestCount,
+
+    incrementBedroomsCount,
+    decrementBedroomsCount,
+    bedroomsCount,
+
+    incrementBedsCount,
+    decrementBedsCount,
+    bedsCount,
+
+    incrementBathroomsCount,
+    decrementBathroomsCount,
+    bathroomsCount,
   };
 
   return (

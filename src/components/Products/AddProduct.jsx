@@ -6,9 +6,22 @@ const AddProduct = () => {
     getCategories,
     categories,
     createProduct,
+
     incrementGuestCount,
     decrementGuestCount,
     guestCount,
+
+    incrementBedroomsCount,
+    decrementBedroomsCount,
+    bedroomsCount,
+
+    incrementBedsCount,
+    decrementBedsCount,
+    bedsCount,
+
+    incrementBathroomsCount,
+    decrementBathroomsCount,
+    bathroomsCount,
   } = useProduct();
 
   useEffect(() => {
@@ -151,24 +164,41 @@ const AddProduct = () => {
         type="text"
         placeholder="guests"
       /> */}
-      <div>
-        <p>guests</p>
-        <button onClick={decrementGuestCount}>-</button>
-        {guestCount}
-        <button onClick={incrementGuestCount}>+</button>
+      <div style={{ display: "flex", flexDirection: "column" }}>
+        <p align="center">guests</p>
+        <button onClick={decrementGuestCount}>MINUS</button>
+        <p align="center"> {guestCount}</p>
+        <button onClick={incrementGuestCount}>PLUS</button>
       </div>
-      <div>
-        <p>bedrooms</p>
-        <button>-</button>1<button>+</button>
+      <br />
+      <br />
+
+      <div style={{ display: "flex", flexDirection: "column" }}>
+        <p align="center">bedrooms</p>
+        <button onClick={decrementBedroomsCount}>MINUS</button>
+        <p align="center">{bedroomsCount}</p>
+        <button onClick={incrementBedroomsCount}>PLUS</button>
       </div>
-      <div>
-        <p>beds</p>
-        <button>-</button>1<button>+</button>
+      <br />
+      <br />
+
+      <div style={{ display: "flex", flexDirection: "column" }}>
+        <p align="center">beds</p>
+        <button onClick={decrementBedsCount}>MINUS</button>
+        <p align="center">{bedsCount}</p>
+        <button onClick={incrementBedsCount}>PLUS</button>
       </div>
-      <div>
-        <p>bathrooms</p>
-        <button>-</button>1<button>+</button>
+      <br />
+      <br />
+
+      <div style={{ display: "flex", flexDirection: "column" }}>
+        <p align="center">bathrooms</p>
+        <button onClick={decrementBathroomsCount}>MINUS</button>
+        <p align="center">{bathroomsCount}</p>
+        <button onClick={incrementBathroomsCount}>PLUS</button>
       </div>
+      <br />
+      <br />
 
       <input
         onChange={(e) => setDescription(e.target.value)}
