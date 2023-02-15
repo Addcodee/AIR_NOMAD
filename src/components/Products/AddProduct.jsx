@@ -28,11 +28,10 @@ const AddProduct = () => {
     getCategories();
   }, []);
 
-  console.log(categories);
-
-  const [category, setCategory] = useState("");
+  // console.log(categories);
 
   // дом , ферма ...
+  const [category, setCategory] = useState("");
   const [country, setCountry] = useState("");
   const [name, setName] = useState("");
   const [street, setStreet] = useState("");
@@ -57,10 +56,10 @@ const AddProduct = () => {
     let newProduct = new FormData();
     newProduct.append("category", category);
     newProduct.append("country", country);
+    newProduct.append("city", city);
     newProduct.append("name", name);
     newProduct.append("street", street);
     newProduct.append("houseNumber", houseNumber);
-    newProduct.append("city", city);
     newProduct.append("guest", guest);
     newProduct.append("bed", bed);
     newProduct.append("bedroom", bedroom);
@@ -74,6 +73,7 @@ const AddProduct = () => {
     newProduct.append("price", price);
 
     createProduct(newProduct);
+    console.log(newProduct);
   }
 
   return (
@@ -91,7 +91,7 @@ const AddProduct = () => {
         onChange={(e) => setCategory(e.target.value)}
       >
         <option style={{ marginBottom: "1rem", padding: "1rem" }} value="">
-          choose category
+          select category for rent
         </option>
 
         {categories.map((item) => (
@@ -106,6 +106,13 @@ const AddProduct = () => {
         style={{ marginBottom: "1rem", padding: "1rem" }}
         type="text"
         placeholder="country"
+      />
+
+      <input
+        onChange={(e) => setCity(e.target.value)}
+        style={{ marginBottom: "1rem", padding: "1rem" }}
+        type="text"
+        placeholder="city"
       />
 
       {/* <select
@@ -130,6 +137,7 @@ const AddProduct = () => {
         type="text"
         placeholder="name"
       />
+
       <input
         onChange={(e) => setStreet(e.target.value)}
         style={{ marginBottom: "1rem", padding: "1rem" }}
@@ -141,13 +149,6 @@ const AddProduct = () => {
         style={{ marginBottom: "1rem", padding: "1rem" }}
         type="text"
         placeholder="houseNumber"
-      />
-
-      <input
-        onChange={(e) => setCity(e.target.value)}
-        style={{ marginBottom: "1rem", padding: "1rem" }}
-        type="text"
-        placeholder="city"
       />
 
       {/* <input

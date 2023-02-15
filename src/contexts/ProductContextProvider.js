@@ -151,18 +151,18 @@ const ProductContextProvider = ({ children }) => {
 
   // const getCoutries = async () => {
   //   try {
-  //     // const tokens = JSON.parse(localStorage.getItem("tokens"));
-  //     // const Authorization = `Bearer ${tokens.access}`;
+  // const tokens = JSON.parse(localStorage.getItem("tokens"));
+  // const Authorization = `Bearer ${tokens.access}`;
 
-  //     // const config = {
-  //     //   headers: {
-  //     //     Authorization,
-  //     //   },
-  //     // };
+  // const config = {
+  //   headers: {
+  //     Authorization,
+  //   },
+  // };
 
   //     const res = await axios.get(
   //       `${API}/categories/`
-  //       // config
+  // config
   //     );
   //     dispatch({
   //       type: "GET_CATEGORIES",
@@ -175,23 +175,23 @@ const ProductContextProvider = ({ children }) => {
 
   //! CREATE
 
-  // const createProduct = async (newProduct) => {
-  //   try {
-  //     const tokens = JSON.parse(localStorage.getItem("tokens"));
-  //     const Authorization = `Bearer ${tokens.access}`;
+  const createProduct = async (newProduct) => {
+    try {
+      const tokens = JSON.parse(localStorage.getItem("tokens"));
+      const Authorization = `Bearer ${tokens.access}`;
 
-  //     const config = {
-  //       headers: {
-  //         Authorization,
-  //       },
-  //     };
+      const config = {
+        headers: {
+          Authorization,
+        },
+      };
 
-  //     const res = await axios.post(`${API}/products/`, newProduct, config);
-  //     navigate("/products");
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+      const res = await axios.post(`${API}/products/`, newProduct, config);
+      navigate("/products");
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   // //! DELETE
 
@@ -272,7 +272,7 @@ const ProductContextProvider = ({ children }) => {
     getCategories,
     categories: state.categories,
 
-    // createProduct,
+    createProduct,
     // deleteProduct,
 
     // getOneProduct,

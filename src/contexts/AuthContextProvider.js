@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { createContext, useContext, useState } from "react";
 import { Await, Navigate, useNavigate } from "react-router-dom";
 
-const API = "http://34.173.115.25/api/v1";
+const API = "http://34.95.167.109/api/v1";
 
 export const authContext = createContext();
 
