@@ -28,13 +28,15 @@ const AddProduct = () => {
     getCategories();
   }, []);
 
-  const [category, setCategory] = useState("");
+  // console.log(categories);
 
   // дом , ферма ...
+  const [category, setCategory] = useState("");
   const [country, setCountry] = useState("");
   const [name, setName] = useState("");
   const [street, setStreet] = useState("");
   const [houseNumber, setHouseNumber] = useState("");
+  const [flatNumber, setFlatNumber] = useState("");
   const [city, setCity] = useState("");
 
   const [guest, setGuest] = useState(1);
@@ -47,6 +49,18 @@ const AddProduct = () => {
   // const [img3, setImg3] = useState("");
   // const [img4, setImg4] = useState("");
   // const [img5, setImg5] = useState("");
+
+  //TODO стейты для удобств
+
+  const [wifi, setWifi] = useState(false);
+  const [fridge, setFridge] = useState(false);
+  const [condition, setCondition] = useState(false);
+  const [tv, setTv] = useState(false);
+  const [pool, setPool] = useState(false);
+  const [furniture, setFurniture] = useState(false);
+  const [wash, setWash] = useState(false);
+  const [medicine, setMedicine] = useState(false);
+  const [kitchen, setKitchen] = useState(false);
 
   const checkFoto = (e) => {
     const files = e.target.files;
@@ -61,26 +75,40 @@ const AddProduct = () => {
   function handleSave() {
     let newProduct = new FormData();
     newProduct.append("category", category);
-    newProduct.append("country", country);
-    newProduct.append("name", name);
-    newProduct.append("street", street);
-    newProduct.append("houseNumber", houseNumber);
+    newProduct.append("country_category", country);
     newProduct.append("city", city);
-    newProduct.append("guest", guest);
-    newProduct.append("bed", bed);
-    newProduct.append("bedroom", bedroom);
-    newProduct.append("bathroom", bathroom);
-    newProduct.append("imgs", imgs);
-    // newProduct.append("img2", img2);
-    // newProduct.append("img3", img3);
-    // newProduct.append("img4", img4);
-    // newProduct.append("img5", img5);
+    newProduct.append("title", name);
+    newProduct.append("adress", street);
+    newProduct.append("house_number", houseNumber);
+    newProduct.append("flat_number", flatNumber);
+    newProduct.append("guests", guest);
+    newProduct.append("beds", bed);
+    newProduct.append("rooms", bedroom);
+    newProduct.append("bathrooms", bathroom);
+
+    newProduct.append("image1", imgs[0]);
+    newProduct.append("image2", imgs[1]);
+    newProduct.append("image3", imgs[2]);
+    newProduct.append("image3", imgs);
+
+    newProduct.append("wifi", wifi);
+    newProduct.append("fridge", fridge);
+    newProduct.append("air_conditioner", condition);
+    newProduct.append("tv", tv);
+    newProduct.append("pool", pool);
+    newProduct.append("furniture", furniture);
+    newProduct.append("washing", wash);
+    newProduct.append("medicine", medicine);
+    newProduct.append("kitchen", kitchen);
     newProduct.append("description", description);
     newProduct.append("price", price);
 
-    createProduct(newProduct);
+    // createProduct(newProduct);
+    console.log(newProduct);
   }
-
+  // console.log(wifi);
+  // console.log(pool);
+  console.log(imgs);
   return (
     <div
       style={{
@@ -95,11 +123,8 @@ const AddProduct = () => {
         value={category}
         onChange={(e) => setCategory(e.target.value)}
       >
-        <option
-          style={{ marginBottom: "1rem", padding: "1rem" }}
-          value=""
-        >
-          choose category
+        <option style={{ marginBottom: "1rem", padding: "1rem" }} value="">
+          select category for rent
         </option>
 
         {categories.map((item) => (
@@ -114,6 +139,13 @@ const AddProduct = () => {
         style={{ marginBottom: "1rem", padding: "1rem" }}
         type="text"
         placeholder="country"
+      />
+
+      <input
+        onChange={(e) => setCity(e.target.value)}
+        style={{ marginBottom: "1rem", padding: "1rem" }}
+        type="text"
+        placeholder="city"
       />
 
       {/* <select
@@ -138,6 +170,7 @@ const AddProduct = () => {
         type="text"
         placeholder="name"
       />
+
       <input
         onChange={(e) => setStreet(e.target.value)}
         style={{ marginBottom: "1rem", padding: "1rem" }}
@@ -150,12 +183,11 @@ const AddProduct = () => {
         type="text"
         placeholder="houseNumber"
       />
-
       <input
-        onChange={(e) => setCity(e.target.value)}
+        onChange={(e) => setFlatNumber(e.target.value)}
         style={{ marginBottom: "1rem", padding: "1rem" }}
         type="text"
-        placeholder="city"
+        placeholder="flat_number"
       />
 
       {/* <input
@@ -197,6 +229,71 @@ const AddProduct = () => {
         <p align="center">{bathroomsCount}</p>
         <button onClick={incrementBathroomsCount}>PLUS</button>
       </div>
+      <br />
+      <br />
+
+      <button
+        style={{ backgroundColor: "yellow", padding: "1rem" }}
+        onClick={() => setWifi(!wifi)}
+      >
+        WIFI
+      </button>
+      <br />
+      <button
+        style={{ backgroundColor: "yellow", padding: "1rem" }}
+        onClick={() => setFridge(!fridge)}
+      >
+        FRIDGE
+      </button>
+      <br />
+      <button
+        style={{ backgroundColor: "yellow", padding: "1rem" }}
+        onClick={() => setCondition(!condition)}
+      >
+        CONDITION
+      </button>
+      <br />
+      <button
+        style={{ backgroundColor: "yellow", padding: "1rem" }}
+        onClick={() => setTv(!tv)}
+      >
+        TV
+      </button>
+      <br />
+      <button
+        style={{ backgroundColor: "yellow", padding: "1rem" }}
+        onClick={() => setPool(!pool)}
+      >
+        POOL
+      </button>
+      <br />
+      <button
+        style={{ backgroundColor: "yellow", padding: "1rem" }}
+        onClick={() => setFurniture(!furniture)}
+      >
+        FURNITURE
+      </button>
+      <br />
+      <button
+        style={{ backgroundColor: "yellow", padding: "1rem" }}
+        onClick={() => setWash(!wash)}
+      >
+        WASH
+      </button>
+      <br />
+      <button
+        style={{ backgroundColor: "yellow", padding: "1rem" }}
+        onClick={() => setMedicine(!medicine)}
+      >
+        Medicine
+      </button>
+      <br />
+      <button
+        style={{ backgroundColor: "yellow", padding: "1rem" }}
+        onClick={() => setKitchen(!kitchen)}
+      >
+        KITCHEN
+      </button>
       <br />
       <br />
 
