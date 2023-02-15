@@ -7,6 +7,7 @@ import HomePage from "../Pages/HomePage/HomePage";
 import NotFoundPage from "../Pages/NotFoundPage/NotFoundPage";
 import ProductPage from "../Pages/ProductPage/ProductPage";
 import LoginPage from "../Pages/LoginPage/LoginPage";
+import ProductDetails from "../components/Products/ProductDetails";
 
 const MainRoutes = () => {
   const PUBLIC_ROUTES = [
@@ -15,8 +16,9 @@ const MainRoutes = () => {
     { path: "/homes", element: <CreateHomePage />, id: 3 },
     { path: "/products", element: <ProductList />, id: 4 },
     { path: "/add", element: <AddProduct />, id: 5 },
-    { path: "/houses", element: <ProductPage />, id: 6 },
-    { path: "*", element: <NotFoundPage />, id: 7 },
+    { path: "/details", element: <ProductDetails />, id: 6 },
+    { path: "/houses", element: <ProductPage />, id: 7 },
+    { path: "*", element: <NotFoundPage />, id: 8 },
   ];
   return (
     <>

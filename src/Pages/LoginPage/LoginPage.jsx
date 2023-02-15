@@ -3,7 +3,8 @@ import { useAuth } from "../../contexts/AuthContextProvider";
 import "./LoginPage.css";
 
 const LoginPage = () => {
-  const [fullName, setFullName] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [password2, setPassword2] = useState("");
@@ -15,12 +16,10 @@ const LoginPage = () => {
     e.preventDefault();
     if (!email.trim() || !password.trim() || !password2.trim()) {
       alert("заполните все поля");
-    } else if (fullName.split(" ").length != 2) {
-      alert("введите имя и фамилию");
     } else {
       let formData = new FormData();
-      formData.append("first_name", fullName.split(" ")[0]);
-      formData.append("last_name", fullName.split(" ")[1]);
+      formData.append("first_name", firstName);
+      formData.append("last_name", lastName);
       formData.append("email", email);
       formData.append("password", password);
       formData.append("password2", password2);
@@ -55,12 +54,20 @@ const LoginPage = () => {
           <header>Register</header>
           {error ? <h2>{error}</h2> : null}
           <form action="submit" onSubmit={handleSave}>
-            <input
-              onChange={(e) => setFullName(e.target.value)}
-              type="text"
-              placeholder="Full name"
-              required
-            />
+            <div className="name__forms">
+              <input
+                onChange={(e) => setFirstName(e.target.value)}
+                type="text"
+                placeholder="First name"
+                required
+              />
+              <input
+                onChange={(e) => setLastName(e.target.value)}
+                type="text"
+                placeholder="Last name"
+                required
+              />
+            </div>
             <input
               onChange={(e) => setEmail(e.target.value)}
               type="text"
@@ -79,7 +86,7 @@ const LoginPage = () => {
               placeholder="Confirm Password"
               required
             />
-            <input type="submit" value="Register" />
+            <button type="submit">Register</button>
           </form>
         </div>
 
@@ -99,7 +106,7 @@ const LoginPage = () => {
               required
             />
             <a href="#">Forgot password?</a>
-            <button type="submit" value="Login" />
+            <button type="submit">Login</button>
           </form>
         </div>
       </section>

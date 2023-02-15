@@ -1,0 +1,5 @@
+.product__list {
+  display: grid;
+  grid-template-columns: 25% 25% 25% 25%;
+  padding: 3rem;
+}
