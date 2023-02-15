@@ -28,8 +28,6 @@ const AddProduct = () => {
     getCategories();
   }, []);
 
-  console.log(categories);
-
   const [category, setCategory] = useState("");
 
   // дом , ферма ...
@@ -44,11 +42,18 @@ const AddProduct = () => {
   const [bedroom, setBedroom] = useState(1);
   const [bathroom, setBathroom] = useState(1);
 
-  const [img1, setImg1] = useState("");
-  const [img2, setImg2] = useState("");
-  const [img3, setImg3] = useState("");
-  const [img4, setImg4] = useState("");
-  const [img5, setImg5] = useState("");
+  const [imgs, setImgs] = useState([]);
+  // const [img2, setImg2] = useState("");
+  // const [img3, setImg3] = useState("");
+  // const [img4, setImg4] = useState("");
+  // const [img5, setImg5] = useState("");
+
+  const checkFoto = (e) => {
+    const files = e.target.files;
+    const arr = Array.from(files);
+    const mapped = arr.map((file) => URL.createObjectURL(file));
+    setImgs(mapped);
+  };
 
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
@@ -65,11 +70,11 @@ const AddProduct = () => {
     newProduct.append("bed", bed);
     newProduct.append("bedroom", bedroom);
     newProduct.append("bathroom", bathroom);
-    newProduct.append("img1", img1);
-    newProduct.append("img2", img2);
-    newProduct.append("img3", img3);
-    newProduct.append("img4", img4);
-    newProduct.append("img5", img5);
+    newProduct.append("imgs", imgs);
+    // newProduct.append("img2", img2);
+    // newProduct.append("img3", img3);
+    // newProduct.append("img4", img4);
+    // newProduct.append("img5", img5);
     newProduct.append("description", description);
     newProduct.append("price", price);
 
@@ -90,7 +95,10 @@ const AddProduct = () => {
         value={category}
         onChange={(e) => setCategory(e.target.value)}
       >
-        <option style={{ marginBottom: "1rem", padding: "1rem" }} value="">
+        <option
+          style={{ marginBottom: "1rem", padding: "1rem" }}
+          value=""
+        >
           choose category
         </option>
 
@@ -206,18 +214,17 @@ const AddProduct = () => {
       />
 
       <input
+        multiple
         accept="image/*"
         style={{ marginBottom: "1rem" }}
-        onChange={(e) => {
-          setImg1(e.target.files[0]);
-          setImg2(e.target.files[1]);
-          setImg3(e.target.files[2]);
-          setImg4(e.target.files[3]);
-          setImg5(e.target.files[4]);
-        }}
+        onChange={checkFoto}
         type="file"
         placeholder="img"
       />
+
+      {imgs?.map((img) => (
+        <img key={img} src={img} alt="error" />
+      ))}
 
       <button onClick={handleSave} style={{ padding: "1rem" }}>
         Add Product

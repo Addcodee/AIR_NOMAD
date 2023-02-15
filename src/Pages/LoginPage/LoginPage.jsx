@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../../contexts/AuthContextProvider";
-import "./RegisterPage.css";
+import "./LoginPage.css";
 
 const LoginPage = () => {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [passwordConfirm, setPasswordConfirm] = useState("");
+  const [password2, setPassword2] = useState("");
 
-  const { handleRegister, error, loading, setError } = useAuth();
+  const { handleRegister, error, loading, setError, handleLogin } =
+    useAuth();
 
   function handleSave(e) {
     e.preventDefault();
-    if (!email.trim() || !password.trim() || !passwordConfirm.trim()) {
+    if (!email.trim() || !password.trim() || !password2.trim()) {
       alert("заполните все поля");
     } else if (fullName.split(" ").length != 2) {
       alert("введите имя и фамилию");
@@ -22,10 +23,25 @@ const LoginPage = () => {
       formData.append("last_name", fullName.split(" ")[1]);
       formData.append("email", email);
       formData.append("password", password);
-      formData.append("password_confirm", passwordConfirm);
+      formData.append("password2", password2);
+      console.log(formData);
       handleRegister(formData);
     }
   }
+
+  const login = (e) => {
+    e.preventDefault();
+    if (!email.trim() || !password.trim()) {
+      alert("error");
+    } else {
+      let formData = new FormData();
+
+      formData.append("email", email);
+      formData.append("password", password);
+
+      handleLogin(formData, email);
+    }
+  };
 
   useEffect(() => {
     setError(false);
@@ -58,7 +74,7 @@ const LoginPage = () => {
               required
             />
             <input
-              onChange={(e) => setPasswordConfirm(e.target.value)}
+              onChange={(e) => setPassword2(e.target.value)}
               type="password"
               placeholder="Confirm Password"
               required
@@ -69,11 +85,21 @@ const LoginPage = () => {
 
         <div onClick={() => setToggle(true)} className="form login">
           <header>Login</header>
-          <form action="#">
-            <input type="text" placeholder="Email address" required />
-            <input type="password" placeholder="Password" required />
+          <form onSubmit={(e) => login(e)}>
+            <input
+              onChange={(e) => setEmail(e.target.value)}
+              type="text"
+              placeholder="Email address"
+              required
+            />
+            <input
+              onChange={(e) => setPassword(e.target.value)}
+              type="password"
+              placeholder="Password"
+              required
+            />
             <a href="#">Forgot password?</a>
-            <input type="submit" value="Login" />
+            <button type="submit" value="Login" />
           </form>
         </div>
       </section>

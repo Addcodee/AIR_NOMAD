@@ -6,7 +6,7 @@ import CreateHomePage from "../Pages/CreateHomePage/CreateHomePage";
 import HomePage from "../Pages/HomePage/HomePage";
 import NotFoundPage from "../Pages/NotFoundPage/NotFoundPage";
 import ProductPage from "../Pages/ProductPage/ProductPage";
-import LoginPage from "../Pages/RegisterPage/LoginPage";
+import LoginPage from "../Pages/LoginPage/LoginPage";
 
 const MainRoutes = () => {
   const PUBLIC_ROUTES = [
