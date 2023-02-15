@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Route, Routes } from "react-router";
 import AddProduct from "../components/Products/AddProduct";
 import ProductList from "../components/Products/ProductList";
@@ -8,8 +8,15 @@ import NotFoundPage from "../Pages/NotFoundPage/NotFoundPage";
 import ProductPage from "../Pages/ProductPage/ProductPage";
 import LoginPage from "../Pages/LoginPage/LoginPage";
 import ProductDetails from "../components/Products/ProductDetails";
+import { useAuth } from "../contexts/AuthContextProvider";
 
 const MainRoutes = () => {
+  const { checkAuth } = useAuth();
+  useEffect(() => {
+    if (localStorage.getItem("tokens")) {
+      checkAuth();
+    }
+  }, []);
   const PUBLIC_ROUTES = [
     { path: "/", element: <HomePage />, id: 1 },
     { path: "/login", element: <LoginPage />, id: 2 },

@@ -1,6 +1,6 @@
 import React from "react";
 import "./Header.css";
-import video from "../../assets/city.mp4";
+import video from "../../assets/planet.mp4";
 import { useProduct } from "../../contexts/ProductContextProvider";
 
 const Header = () => {

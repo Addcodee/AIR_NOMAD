@@ -66,11 +66,14 @@ const AuthContextProvider = ({ children }) => {
         config,
       });
 
+      console.log(res.data.access, 'access');
+      console.log(res.data.refresh, 'access');
+
       localStorage.setItem(
         "tokens",
         JSON.stringify({
           access: res.data.access,
-          refresh: tokens.refresh,
+          refresh: res.data.refresh,
         })
       );
       const email = localStorage.getItem("email");
