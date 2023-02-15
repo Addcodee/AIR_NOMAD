@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { createContext, useContext, useReducer, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export const productContext = createContext();
 export const useProduct = () => useContext(productContext);
@@ -10,7 +10,7 @@ const API = "http://34.95.167.109/api/v1";
 const INIT_STATE = {
   products: [],
   categories: [],
-  coutries: [],
+  countries: [],
   oneProduct: null,
 };
 
@@ -40,6 +40,7 @@ function reducer(state = INIT_STATE, action) {
 
 const ProductContextProvider = ({ children }) => {
   const [lang, setLang] = useState(false);
+  const location = useLocation();
 
   const [guestCount, setGuestCount] = useState(1);
   const [bedroomsCount, setBedroomsCount] = useState(1);
@@ -65,7 +66,7 @@ const ProductContextProvider = ({ children }) => {
   };
 
   const incrementBedroomsCount = () => {
-    if (bedroomsCount < 10) {
+    if (bedroomsCount < 6) {
       setBedroomsCount(bedroomsCount + 1);
     }
   };
@@ -89,7 +90,7 @@ const ProductContextProvider = ({ children }) => {
   };
 
   const incrementBathroomsCount = () => {
-    if (bathroomsCount < 10) {
+    if (bathroomsCount < 6) {
       setBathroomsCount(bathroomsCount + 1);
     }
   };
@@ -149,29 +150,17 @@ const ProductContextProvider = ({ children }) => {
     }
   };
 
-  // const getCoutries = async () => {
-  //   try {
-  // const tokens = JSON.parse(localStorage.getItem("tokens"));
-  // const Authorization = `Bearer ${tokens.access}`;
-
-  // const config = {
-  //   headers: {
-  //     Authorization,
-  //   },
-  // };
-
-  //     const res = await axios.get(
-  //       `${API}/categories/`
-  // config
-  //     );
-  //     dispatch({
-  //       type: "GET_CATEGORIES",
-  //       payload: res.data,
-  //     });
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+  const getCountries = async () => {
+    try {
+      const res = await axios.get(`${API}/categories/`);
+      dispatch({
+        type: "GET_CATEGORIES",
+        payload: res.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   //! CREATE
 
@@ -272,6 +261,9 @@ const ProductContextProvider = ({ children }) => {
     getCategories,
     categories: state.categories,
 
+    getCountries,
+    countries: state.countries,
+
     createProduct,
     // deleteProduct,
 
@@ -281,6 +273,7 @@ const ProductContextProvider = ({ children }) => {
 
     lang,
     setLang,
+    location,
 
     incrementGuestCount,
     decrementGuestCount,

@@ -36,8 +36,15 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  cursor: pointer;
   font-weight: 500;
+}
+
+.navbar__search div {
+  cursor: pointer;
+  padding: 0.5em 1.5em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .navbar__auth {

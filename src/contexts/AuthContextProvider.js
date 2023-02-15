@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { createContext, useContext, useState } from "react";
-import { Await, Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const API = "http://34.95.167.109/api/v1";
 
@@ -18,10 +18,12 @@ const AuthContextProvider = ({ children }) => {
   const handleRegister = async (formData) => {
     setLoading(true);
     try {
-      const res = await axios.post(`${API}/account/register/`, formData);
-      console.log(res);
+      const res = await axios.post(
+        `${API}/accounts/register/`,
+        formData
+      );
     } catch (error) {
-      setError(Object.values(error.response.data).flat(2));
+      setError(Object.values(error.response.data).flat(Infinity)[0]);
     } finally {
       setLoading(false);
     }
@@ -31,12 +33,16 @@ const AuthContextProvider = ({ children }) => {
     setLoading(true);
 
     try {
-      const res = await axios.post(`${API}/account/login/`, formData);
+      const res = await axios.post(
+        `${API}/accounts/login/`,
+        formData
+      );
       localStorage.setItem("tokens", JSON.stringify(res.data));
       localStorage.setItem("email", email);
+      console.log(res);
       setUser(email);
-      navigate("/");
     } catch (error) {
+      console.log(error);
       setError(error.response.data.detail);
     } finally {
       setLoading(false);
@@ -55,7 +61,7 @@ const AuthContextProvider = ({ children }) => {
         },
       };
 
-      const res = await axios.post(`${API}/account/token/refresh/`, {
+      const res = await axios.post(`${API}/accounts/refresh/`, {
         refresh: tokens.refresh,
         config,
       });
@@ -81,7 +87,6 @@ const AuthContextProvider = ({ children }) => {
     localStorage.removeItem("tokens");
     localStorage.removeItem("email");
     setUser(false);
-    navigate("/login");
   };
 
   const values = {
@@ -94,7 +99,11 @@ const AuthContextProvider = ({ children }) => {
     handleLogout,
     checkAuth,
   };
-  return <authContext.Provider value={values}>{children}</authContext.Provider>;
+  return (
+    <authContext.Provider value={values}>
+      {children}
+    </authContext.Provider>
+  );
 };
 
 export default AuthContextProvider;

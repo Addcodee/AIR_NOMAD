@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useProduct } from "../../contexts/ProductContextProvider";
 import ProductCard from "./ProductCard";
+import "./ProductList.css";
 
 const ProductList = () => {
   const { getProducts, products } = useProduct();
@@ -12,16 +13,14 @@ const ProductList = () => {
   console.log(products);
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "space-between",
-        padding: "3rem",
-      }}
-    >
-      {/* {products.map((item) => (
-        <ProductCard item={item} key={item.id} />
-      ))} */}
+    <div className="product__list">
+      <ProductCard />
+      <ProductCard />
+      <ProductCard />
+      <ProductCard />
+      <ProductCard />
+      <ProductCard />
+      <ProductCard />
     </div>
   );
 };
