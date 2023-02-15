@@ -5,23 +5,26 @@ import { MdLanguage } from "react-icons/md";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { TbTent } from "react-icons/tb";
 import BurgerMenu from "../BurgerMenu/BurgerMenu";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import { useProduct } from "../../contexts/ProductContextProvider";
 
 const Navbar = () => {
-  const { lang, setLang } = useProduct();
+  const { lang, setLang, location } = useProduct();
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
   const menuRef = useRef();
 
+
   useEffect(() => {
     let handler = (e) => {
-      if (!menuRef.current.contains(e.target)) {
-        setOpen(false);
+      if (location.pathname === "/") {
+        if (!menuRef.current.contains(e.target)) {
+          setOpen(false);
+        }
       }
     };
     document.addEventListener("mousedown", handler);
-  });
+  }, []);
 
   return (
     <div className="navbar">
@@ -33,7 +36,9 @@ const Navbar = () => {
           <TbTent className="navbar__logo" />
           <span>AIR NOMAD</span>
         </div>
-        <div onClick={() => navigate('/houses')} className="navbar__search">GET STARTED</div>
+        <div className="navbar__search">
+          <div onClick={() => navigate("/houses")}>GET STARTED</div>
+        </div>
         <div ref={menuRef} className="navbar__auth">
           <div
             onClick={() => setLang(!lang)}

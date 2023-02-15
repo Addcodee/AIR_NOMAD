@@ -22,10 +22,8 @@ const AuthContextProvider = ({ children }) => {
         `${API}/accounts/register/`,
         formData
       );
-      console.log(res);
     } catch (error) {
-      console.log(error.response);
-      // setError(error);
+      setError(Object.values(error.response.data).flat(Infinity)[0]);
     } finally {
       setLoading(false);
     }
@@ -63,7 +61,7 @@ const AuthContextProvider = ({ children }) => {
         },
       };
 
-      const res = await axios.post(`${API}/account/token/refresh/`, {
+      const res = await axios.post(`${API}/accounts/refresh/`, {
         refresh: tokens.refresh,
         config,
       });

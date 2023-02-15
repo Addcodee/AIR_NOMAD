@@ -7,7 +7,7 @@
 }
 .wrapper {
   position: relative;
-  max-width: 470px;
+  max-width: 600px;
   width: 100%;
   border-radius: 12px;
   padding: 20px 30px 120px;
@@ -15,6 +15,16 @@
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
   overflow: hidden;
 }
+
+.name__forms {
+  display: flex;
+  justify-content: space-between;
+}
+
+.name__forms input{
+  width: 48%;
+}
+
 .form.login {
   position: absolute;
   left: 50%;
@@ -68,6 +78,25 @@ form input {
   border-radius: 15px;
   background: #fff;
 }
+
+form button {
+  outline: none;
+  border: none;
+  padding: 0.5em;
+  font-size: 24px;
+  font-weight: 400;
+  color: #333;
+  border-radius: 15px;
+  background: #fff;
+  cursor: pointer;
+}
+
+.login button {
+  background: #a3c6c4;
+  color: #fff;
+  border: none;
+}
+
 .form.login input {
   border: 1px solid #aaa;
 }
@@ -95,17 +124,4 @@ form a {
 }
 form a:hover {
   text-decoration: underline;
-}
-form input[type="submit"] {
-  color: rgba(44, 44, 44, 0.841);
-  margin-top: 15px;
-  padding: none;
-  font-size: 18px;
-  font-weight: 500;
-  cursor: pointer;
-}
-.form.login input[type="submit"] {
-  background: #a3c6c4;
-  color: #fff;
-  border: none;
 }

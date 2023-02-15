@@ -1,6 +1,11 @@
 import axios from "axios";
-import React, { createContext, useContext, useReducer, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, {
+  createContext,
+  useContext,
+  useReducer,
+  useState,
+} from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export const productContext = createContext();
 export const useProduct = () => useContext(productContext);
@@ -40,6 +45,7 @@ function reducer(state = INIT_STATE, action) {
 
 const ProductContextProvider = ({ children }) => {
   const [lang, setLang] = useState(false);
+  const location = useLocation();
 
   const [guestCount, setGuestCount] = useState(1);
   const [bedroomsCount, setBedroomsCount] = useState(1);
@@ -281,6 +287,7 @@ const ProductContextProvider = ({ children }) => {
 
     lang,
     setLang,
+    location,
 
     incrementGuestCount,
     decrementGuestCount,
@@ -300,7 +307,9 @@ const ProductContextProvider = ({ children }) => {
   };
 
   return (
-    <productContext.Provider value={values}>{children}</productContext.Provider>
+    <productContext.Provider value={values}>
+      {children}
+    </productContext.Provider>
   );
 };
 
