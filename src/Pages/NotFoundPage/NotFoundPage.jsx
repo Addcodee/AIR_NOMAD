@@ -29,7 +29,7 @@ const NotFoundPage = () => {
     <div className="nav">
       <div
         ref={menuRef}
-        className={open ? "active" : "disabled"}
+        className={open ? "activeF" : "disabled"}
         onClick={() => setOpen(true)}
       >
         {open ? (

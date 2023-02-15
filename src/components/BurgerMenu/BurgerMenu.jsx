@@ -10,7 +10,7 @@ const BurgerMenu = () => {
     <div className="burgerMenu">
       <div className="burgerMenu__auth">
         <div onClick={() => navigate("/login")} className="burgerMenu-item">
-          <span>Войти</span>
+          <span>Авторизоваться</span>
         </div>
       </div>
       <hr />
