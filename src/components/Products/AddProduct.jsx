@@ -39,13 +39,10 @@ const AddProduct = () => {
   const [flatNumber, setFlatNumber] = useState("");
   const [city, setCity] = useState("");
 
-  const [guest, setGuest] = useState(1);
-  const [bed, setBed] = useState(1);
-  const [bedroom, setBedroom] = useState(1);
-  const [bathroom, setBathroom] = useState(1);
+  const [stock, setStock] = useState(false);
 
   const [imgs, setImgs] = useState([]);
-  // const [img2, setImg2] = useState("");
+  const [imgsToBack, setImgsToBack] = useState([]);
   // const [img3, setImg3] = useState("");
   // const [img4, setImg4] = useState("");
   // const [img5, setImg5] = useState("");
@@ -63,6 +60,7 @@ const AddProduct = () => {
   const [kitchen, setKitchen] = useState(false);
 
   const checkFoto = (e) => {
+    setImgsToBack(e.target.files);
     const files = e.target.files;
     const arr = Array.from(files);
     const mapped = arr.map((file) => URL.createObjectURL(file));
@@ -78,18 +76,19 @@ const AddProduct = () => {
     newProduct.append("country_category", country);
     newProduct.append("city", city);
     newProduct.append("title", name);
-    newProduct.append("adress", street);
-    newProduct.append("house_number", houseNumber);
-    newProduct.append("flat_number", flatNumber);
-    newProduct.append("guests", guest);
-    newProduct.append("beds", bed);
-    newProduct.append("rooms", bedroom);
-    newProduct.append("bathrooms", bathroom);
+    newProduct.append("address", street);
+    newProduct.append("house_number", Number(houseNumber));
+    newProduct.append("flat_number", Number(flatNumber));
+    newProduct.append("guests", Number(guestCount));
+    newProduct.append("beds", Number(bedsCount));
+    newProduct.append("rooms", Number(bedroomsCount));
+    newProduct.append("bathrooms", Number(bathroomsCount));
 
-    newProduct.append("image1", imgs[0]);
-    newProduct.append("image2", imgs[1]);
-    newProduct.append("image3", imgs[2]);
-    newProduct.append("image3", imgs);
+    newProduct.append("image1", imgsToBack[0]);
+    newProduct.append("image2", imgsToBack[1]);
+    newProduct.append("image3", imgsToBack[2]);
+
+    newProduct.append("stock", stock);
 
     newProduct.append("wifi", wifi);
     newProduct.append("fridge", fridge);
@@ -101,14 +100,12 @@ const AddProduct = () => {
     newProduct.append("medicine", medicine);
     newProduct.append("kitchen", kitchen);
     newProduct.append("description", description);
-    newProduct.append("price", price);
+    newProduct.append("price", Number(price));
 
-    // createProduct(newProduct);
-    console.log(newProduct);
+    createProduct(newProduct);
+    // console.log(obj);
   }
-  // console.log(wifi);
-  // console.log(pool);
-  console.log(imgs);
+
   return (
     <div
       style={{
@@ -123,7 +120,10 @@ const AddProduct = () => {
         value={category}
         onChange={(e) => setCategory(e.target.value)}
       >
-        <option style={{ marginBottom: "1rem", padding: "1rem" }} value="">
+        <option
+          style={{ marginBottom: "1rem", padding: "1rem" }}
+          value=""
+        >
           select category for rent
         </option>
 
@@ -322,6 +322,10 @@ const AddProduct = () => {
       {imgs?.map((img) => (
         <img key={img} src={img} alt="error" />
       ))}
+
+      <button onClick={() => setStock(!stock)}>
+        {stock ? "active" : "disabled"}
+      </button>
 
       <button onClick={handleSave} style={{ padding: "1rem" }}>
         Add Product
