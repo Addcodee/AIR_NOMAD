@@ -81,10 +81,10 @@ const AddProduct = () => {
     newProduct.append("adress", street);
     newProduct.append("house_number", houseNumber);
     newProduct.append("flat_number", flatNumber);
-    newProduct.append("guests", guest);
-    newProduct.append("beds", bed);
-    newProduct.append("rooms", bedroom);
-    newProduct.append("bathrooms", bathroom);
+    newProduct.append("guests", guestCount);
+    newProduct.append("beds", bedsCount);
+    newProduct.append("rooms", bedroomsCount);
+    newProduct.append("bathrooms", bathroomsCount);
 
     newProduct.append("image1", imgs[0]);
     newProduct.append("image2", imgs[1]);
@@ -103,12 +103,13 @@ const AddProduct = () => {
     newProduct.append("description", description);
     newProduct.append("price", price);
 
-    // createProduct(newProduct);
+    createProduct(newProduct);
     console.log(newProduct);
   }
   // console.log(wifi);
   // console.log(pool);
   console.log(imgs);
+
   return (
     <div
       style={{
