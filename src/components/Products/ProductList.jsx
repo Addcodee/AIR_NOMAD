@@ -14,13 +14,9 @@ const ProductList = () => {
 
   return (
     <div className="product__list">
-      <ProductCard />
-      <ProductCard />
-      <ProductCard />
-      <ProductCard />
-      <ProductCard />
-      <ProductCard />
-      <ProductCard />
+      {products.map((obj) => (
+        <ProductCard key={obj.id} obj={obj} />
+      ))}
     </div>
   );
 };

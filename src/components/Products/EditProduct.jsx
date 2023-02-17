@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useProduct } from "../../contexts/ProductContextProvider";
 
-const AddProduct = () => {
+const EditProduct = () => {
   const {
     getCategories,
     categories,
@@ -35,8 +35,6 @@ const AddProduct = () => {
     getCountries();
   }, []);
 
-  // console.log(categories);
-
   // дом , ферма ...
   const [category, setCategory] = useState("");
   const [country, setCountry] = useState("");
@@ -50,11 +48,6 @@ const AddProduct = () => {
 
   const [imgs, setImgs] = useState([]);
   const [imgsToBack, setImgsToBack] = useState([]);
-  // const [img3, setImg3] = useState("");
-  // const [img4, setImg4] = useState("");
-  // const [img5, setImg5] = useState("");
-
-  //TODO стейты для удобств
 
   const [wifi, setWifi] = useState(false);
   const [fridge, setFridge] = useState(false);
@@ -66,6 +59,8 @@ const AddProduct = () => {
   const [medicine, setMedicine] = useState(false);
   const [kitchen, setKitchen] = useState(false);
 
+  const [description, setDescription] = useState("");
+  const [price, setPrice] = useState("");
   const checkFoto = (e) => {
     setImgsToBack(e.target.files);
     const files = e.target.files;
@@ -73,9 +68,6 @@ const AddProduct = () => {
     const mapped = arr.map((file) => URL.createObjectURL(file));
     setImgs(mapped);
   };
-
-  const [description, setDescription] = useState("");
-  const [price, setPrice] = useState("");
 
   function handleSave() {
     let newProduct = new FormData();
@@ -110,7 +102,6 @@ const AddProduct = () => {
     newProduct.append("price", Number(price));
 
     createProduct(newProduct);
-    // console.log(obj);
   }
 
   return (
@@ -337,4 +328,4 @@ const AddProduct = () => {
   );
 };
 
-export default AddProduct;
+export default EditProduct;

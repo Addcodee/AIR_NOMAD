@@ -9,11 +9,11 @@ import { useLocation, useNavigate } from "react-router";
 import { useProduct } from "../../contexts/ProductContextProvider";
 
 const Navbar = () => {
-  const { lang, setLang, location } = useProduct();
+  const { lang, setLang } = useProduct();
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
   const menuRef = useRef();
-
+  const location = useLocation();
 
   useEffect(() => {
     let handler = (e) => {
