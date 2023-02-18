@@ -1,11 +1,9 @@
 import React from "react";
-import HousesFilter from "../../components/HousesFilter/HousesFilter";
 import ProductList from "../../components/Products/ProductList";
 
 const ProductPage = () => {
   return (
-    <div>
-      <HousesFilter />
+    <div className="product__page">
       <ProductList />
     </div>
   );

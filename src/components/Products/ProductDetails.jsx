@@ -14,15 +14,17 @@ const ProductDetails = () => {
   console.log(oneProduct);
   return (
     <div>
-      <button onClick={() => navigate(`/edit/${id}/`)}>edit</button>
-      <button
-        onClick={() => {
-          deleteProduct(id);
-          navigate("/houses");
-        }}
-      >
-        delete
-      </button>
+      <div style={{ paddingTop: "5rem" }}>
+        <button onClick={() => navigate(`/edit/${id}/`)}>edit</button>
+        <button
+          onClick={() => {
+            deleteProduct(id);
+            navigate("/houses");
+          }}
+        >
+          delete
+        </button>
+      </div>
     </div>
   );
 };

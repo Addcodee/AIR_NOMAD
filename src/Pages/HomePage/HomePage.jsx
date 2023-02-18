@@ -5,7 +5,7 @@ import Header from "../../containers/Header/Header";
 const HomePage = () => {
   return (
     <div>
-      <Navbar />
+      {/* <Navbar /> */}
       <Header />
     </div>
   );
