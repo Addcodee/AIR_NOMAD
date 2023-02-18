@@ -45,6 +45,8 @@ function reducer(state = INIT_STATE, action) {
 
 const ProductContextProvider = ({ children }) => {
   const [lang, setLang] = useState(false);
+  const [openFilter, setOpenFilter] = useState(false);
+
   const location = useLocation();
 
   const [guestCount, setGuestCount] = useState(1);
@@ -109,6 +111,7 @@ const ProductContextProvider = ({ children }) => {
   const getProducts = async () => {
     try {
       const res = await axios.get(`${API}/product/`);
+      console.log(res.data);
 
       dispatch({
         type: "GET_PRODUCTS",
@@ -192,16 +195,7 @@ const ProductContextProvider = ({ children }) => {
 
   const getOneProduct = async (id) => {
     try {
-      const tokens = JSON.parse(localStorage.getItem("tokens"));
-      const Authorization = `Bearer ${tokens.access}`;
-
-      const config = {
-        headers: {
-          Authorization,
-        },
-      };
-
-      let res = await axios.get(`${API}/product/${id}/`, config);
+      let res = await axios.get(`${API}/product/${id}/`);
 
       dispatch({
         type: "GET_ONE_PRODUCT",
@@ -275,6 +269,9 @@ const ProductContextProvider = ({ children }) => {
     incrementBathroomsCount,
     decrementBathroomsCount,
     bathroomsCount,
+
+    openFilter,
+    setOpenFilter,
   };
 
   return (
