@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useProduct } from "../../contexts/ProductContextProvider";
+import "./AddProduct.css";
 
 const AddProduct = () => {
+  //? functions from product context
+
   const {
     getCategories,
     categories,
@@ -27,6 +30,8 @@ const AddProduct = () => {
     bathroomsCount,
   } = useProduct();
 
+  //? country and house categories
+
   useEffect(() => {
     getCategories();
   }, []);
@@ -35,27 +40,29 @@ const AddProduct = () => {
     getCountries();
   }, []);
 
-  // console.log(categories);
-
-  // дом , ферма ...
+  //? house category
   const [category, setCategory] = useState("");
+
+  //? country category
   const [country, setCountry] = useState("");
+
+  //? house's name, location and index
   const [name, setName] = useState("");
+  const [city, setCity] = useState("");
   const [street, setStreet] = useState("");
   const [houseNumber, setHouseNumber] = useState("");
   const [flatNumber, setFlatNumber] = useState("");
-  const [city, setCity] = useState("");
 
-  const [stock, setStock] = useState(false);
+  //? stock shows, is the house active or not
+  const [stock, setStock] = useState(true);
 
+  //? images to show on user create panel
   const [imgs, setImgs] = useState([]);
+
+  //? images, that sending to the backend
   const [imgsToBack, setImgsToBack] = useState([]);
-  // const [img3, setImg3] = useState("");
-  // const [img4, setImg4] = useState("");
-  // const [img5, setImg5] = useState("");
 
-  //TODO стейты для удобств
-
+  //? comforts
   const [wifi, setWifi] = useState(false);
   const [fridge, setFridge] = useState(false);
   const [condition, setCondition] = useState(false);
@@ -66,6 +73,11 @@ const AddProduct = () => {
   const [medicine, setMedicine] = useState(false);
   const [kitchen, setKitchen] = useState(false);
 
+  const [description, setDescription] = useState("");
+  const [price, setPrice] = useState("");
+
+  //? function, that shows pictures after their upload
+
   const checkFoto = (e) => {
     setImgsToBack(e.target.files);
     const files = e.target.files;
@@ -74,9 +86,7 @@ const AddProduct = () => {
     setImgs(mapped);
   };
 
-  const [description, setDescription] = useState("");
-  const [price, setPrice] = useState("");
-
+  //? this function collect an object of datas and give to the 'createProduct' function
   function handleSave() {
     let newProduct = new FormData();
     newProduct.append("category", category);
@@ -109,19 +119,12 @@ const AddProduct = () => {
     newProduct.append("description", description);
     newProduct.append("price", Number(price));
 
+    //? this function creates the product
     createProduct(newProduct);
-    // console.log(obj);
   }
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        width: "50%",
-        margin: "auto",
-      }}
-    >
+    <div className="add__product">
       <select
         style={{ marginBottom: "1rem", padding: "1rem" }}
         value={category}
@@ -193,12 +196,6 @@ const AddProduct = () => {
         placeholder="flat_number"
       />
 
-      {/* <input
-        onChange={(e) => setGuest(e.target.value)}
-        style={{ marginBottom: "1rem", padding: "1rem" }}
-        type="text"
-        placeholder="guests"
-      /> */}
       <div style={{ display: "flex", flexDirection: "column" }}>
         <p align="center">guests</p>
         <button onClick={decrementGuestCount}>MINUS</button>

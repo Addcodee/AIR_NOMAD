@@ -42,7 +42,9 @@ const Navbar = () => {
           <TbTent className="navbar__logo" />
           <span>AIR NOMAD</span>
         </div>
-        {location.pathname === "/" ? (
+        {location.pathname === "/" ||
+        location.pathname === "/login" ||
+        location.pathname === "/homes" ? (
           <div className="navbar__search">
             <div onClick={() => navigate("/houses")}>GET STARTED</div>
           </div>
