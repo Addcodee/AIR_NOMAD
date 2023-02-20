@@ -253,6 +253,8 @@ const ProductContextProvider = ({ children }) => {
   //   }
   // };
 
+  console.log(state.categories);
+
   const values = {
     getProducts,
     products: state.products,

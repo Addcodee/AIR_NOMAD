@@ -8,14 +8,11 @@ import Typography from "@mui/material/Typography";
 import "./ProductCard.css";
 import { useNavigate } from "react-router-dom";
 
+
 export default function ProductCard() {
   const navigate = useNavigate();
   return (
-    <Card
-      onClick={() => navigate("/details")}
-      className="card"
-      sx={{ maxWidth: 300 }}
-    >
+    <div className="card" onClick={() => navigate("/details")}>
       <CardMedia
         sx={{ height: 250, borderRadius: "1em" }}
         image="https://images.pexels.com/photos/950058/pexels-photo-950058.jpeg?auto=compress&cs=tinysrgb&w=600"
@@ -28,6 +25,6 @@ export default function ProductCard() {
         </Typography>
         <h4 variant="h4">$2100 night</h4>
       </div>
-    </Card>
+    </div>
   );
 }
