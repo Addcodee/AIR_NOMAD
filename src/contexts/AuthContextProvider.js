@@ -66,9 +66,6 @@ const AuthContextProvider = ({ children }) => {
         config,
       });
 
-      console.log(res.data.access, 'access');
-      console.log(res.data.refresh, 'access');
-
       localStorage.setItem(
         "tokens",
         JSON.stringify({

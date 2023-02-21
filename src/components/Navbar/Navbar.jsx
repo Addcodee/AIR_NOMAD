@@ -7,28 +7,34 @@ import { TbTent } from "react-icons/tb";
 import BurgerMenu from "../BurgerMenu/BurgerMenu";
 import { useLocation, useNavigate } from "react-router";
 import { useProduct } from "../../contexts/ProductContextProvider";
+import Filter from "../Filter/Filter";
 
 const Navbar = () => {
-  const { lang, setLang, location } = useProduct();
-  const [open, setOpen] = useState(false);
+  const { lang, setLang } = useProduct();
+  const [openMenu, setOpenMenu] = useState(false);
   const navigate = useNavigate();
   const menuRef = useRef();
-
+  const location = useLocation();
 
   useEffect(() => {
     let handler = (e) => {
-      if (location.pathname === "/") {
-        if (!menuRef.current.contains(e.target)) {
-          setOpen(false);
-        }
+      if (!menuRef.current.contains(e.target)) {
+        setOpenMenu(false);
       }
     };
     document.addEventListener("mousedown", handler);
+    return () => {
+      document.removeEventListener("mousedown", handler);
+    };
   }, []);
 
   return (
     <div className="navbar">
-      <div className="navbar-top">
+      <div
+        className={
+          location.pathname === "/" ? "navbar-top" : "navbar-bottom"
+        }
+      >
         <div
           onClick={() => navigate("/")}
           className="navbar__container-logo"
@@ -36,9 +42,15 @@ const Navbar = () => {
           <TbTent className="navbar__logo" />
           <span>AIR NOMAD</span>
         </div>
-        <div className="navbar__search">
-          <div onClick={() => navigate("/houses")}>GET STARTED</div>
-        </div>
+        {location.pathname === "/" ||
+        location.pathname === "/login" ||
+        location.pathname === "/homes" ? (
+          <div className="navbar__search">
+            <div onClick={() => navigate("/houses")}>GET STARTED</div>
+          </div>
+        ) : (
+          <Filter />
+        )}
         <div ref={menuRef} className="navbar__auth">
           <div
             onClick={() => setLang(!lang)}
@@ -47,17 +59,16 @@ const Navbar = () => {
             <MdLanguage style={{ width: "2em", height: "2em" }} />
           </div>
           <div
-            onClick={() => setOpen(!open)}
+            onClick={() => setOpenMenu(!openMenu)}
             className="navbar__auth-menu"
           >
             <RxHamburgerMenu
               style={{ width: "2em", height: "2em" }}
             />
           </div>
-          {open ? <BurgerMenu /> : null}
+          {openMenu ? <BurgerMenu /> : null}
         </div>
       </div>
-      <div className="navbar-bottom"></div>
     </div>
   );
 };

@@ -1,5 +1,5 @@
 .card {
-  margin-bottom: 4em;
+  margin: 4em 0;
   box-shadow: 0 0 0;
   display: flex;
   flex-direction: column;

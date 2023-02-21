@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useProduct } from "../../contexts/ProductContextProvider";
-import "./AddProduct.css";
 
-const AddProduct = () => {
-  //? functions from product context
-
+const EditProduct = () => {
   const {
     getCategories,
     categories,
@@ -30,8 +27,6 @@ const AddProduct = () => {
     bathroomsCount,
   } = useProduct();
 
-  //? country and house categories
-
   useEffect(() => {
     getCategories();
   }, []);
@@ -40,29 +35,20 @@ const AddProduct = () => {
     getCountries();
   }, []);
 
-  //? house category
+  // дом , ферма ...
   const [category, setCategory] = useState("");
-
-  //? country category
   const [country, setCountry] = useState("");
-
-  //? house's name, location and index
   const [name, setName] = useState("");
-  const [city, setCity] = useState("");
   const [street, setStreet] = useState("");
   const [houseNumber, setHouseNumber] = useState("");
   const [flatNumber, setFlatNumber] = useState("");
+  const [city, setCity] = useState("");
 
-  //? stock shows, is the house active or not
-  const [stock, setStock] = useState(true);
+  const [stock, setStock] = useState(false);
 
-  //? images to show on user create panel
   const [imgs, setImgs] = useState([]);
-
-  //? images, that sending to the backend
   const [imgsToBack, setImgsToBack] = useState([]);
 
-  //? comforts
   const [wifi, setWifi] = useState(false);
   const [fridge, setFridge] = useState(false);
   const [condition, setCondition] = useState(false);
@@ -75,9 +61,6 @@ const AddProduct = () => {
 
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
-
-  //? function, that shows pictures after their upload
-
   const checkFoto = (e) => {
     setImgsToBack(e.target.files);
     const files = e.target.files;
@@ -86,7 +69,6 @@ const AddProduct = () => {
     setImgs(mapped);
   };
 
-  //? this function collect an object of datas and give to the 'createProduct' function
   function handleSave() {
     let newProduct = new FormData();
     newProduct.append("category", category);
@@ -119,18 +101,27 @@ const AddProduct = () => {
     newProduct.append("description", description);
     newProduct.append("price", Number(price));
 
-    //? this function creates the product
     createProduct(newProduct);
   }
 
   return (
-    <div className="add__product">
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        width: "50%",
+        margin: "auto",
+      }}
+    >
       <select
         style={{ marginBottom: "1rem", padding: "1rem" }}
         value={category}
         onChange={(e) => setCategory(e.target.value)}
       >
-        <option style={{ marginBottom: "1rem", padding: "1rem" }} value="">
+        <option
+          style={{ marginBottom: "1rem", padding: "1rem" }}
+          value=""
+        >
           select category for rent
         </option>
 
@@ -193,6 +184,12 @@ const AddProduct = () => {
         placeholder="flat_number"
       />
 
+      {/* <input
+        onChange={(e) => setGuest(e.target.value)}
+        style={{ marginBottom: "1rem", padding: "1rem" }}
+        type="text"
+        placeholder="guests"
+      /> */}
       <div style={{ display: "flex", flexDirection: "column" }}>
         <p align="center">guests</p>
         <button onClick={decrementGuestCount}>MINUS</button>
@@ -331,4 +328,4 @@ const AddProduct = () => {
   );
 };
 
-export default AddProduct;
+export default EditProduct;
