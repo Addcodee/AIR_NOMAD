@@ -110,7 +110,7 @@ const ProductContextProvider = ({ children }) => {
 
   const getProducts = async () => {
     try {
-      const res = await axios.get(`${API}/product/`);
+      const res = await axios.get(`${API}/product/?country_category&&category=`);
       console.log(res.data);
 
       dispatch({

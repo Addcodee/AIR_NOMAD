@@ -133,9 +133,7 @@ const FilterModal = () => {
               </div>
 
               <div
-                onClick={() =>
-                  setSelectedItaly(!selectedItaly)
-                }
+                onClick={() => setSelectedItaly(!selectedItaly)}
                 className={
                   selectedItaly ? "country__clicked" : "country"
                 }
@@ -149,7 +147,9 @@ const FilterModal = () => {
               </div>
 
               <div
-                onClick={() => setSelectedKyrgyzstan(!selectedKyrgyzstan)}
+                onClick={() =>
+                  setSelectedKyrgyzstan(!selectedKyrgyzstan)
+                }
                 className={
                   selectedKyrgyzstan ? "country__clicked" : "country"
                 }
@@ -182,7 +182,11 @@ const FilterModal = () => {
                   selectedBali ? "country__clicked" : "country"
                 }
               >
-                <img className="country__img" src={bali} alt={"bali"} />
+                <img
+                  className="country__img"
+                  src={bali}
+                  alt={"bali"}
+                />
                 <span>Bali</span>
               </div>
             </div>
