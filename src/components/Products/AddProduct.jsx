@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useProduct } from "../../contexts/ProductContextProvider";
 import "./AddProduct.css";
+import ProductCard from "./ProductCard";
 
 const AddProduct = () => {
   //? functions from product context
+  const navigate = useNavigate();
 
   const {
     getCategories,
@@ -85,8 +88,10 @@ const AddProduct = () => {
     const mapped = arr.map((file) => URL.createObjectURL(file));
     setImgs(mapped);
   };
+  console.log(imgs);
 
   //? this function collect an object of datas and give to the 'createProduct' function
+
   function handleSave() {
     let newProduct = new FormData();
     newProduct.append("category", category);
@@ -130,10 +135,7 @@ const AddProduct = () => {
         value={category}
         onChange={(e) => setCategory(e.target.value)}
       >
-        <option
-          style={{ marginBottom: "1rem", padding: "1rem" }}
-          value=""
-        >
+        <option style={{ marginBottom: "1rem", padding: "1rem" }} value="">
           select category for rent
         </option>
 
@@ -149,10 +151,7 @@ const AddProduct = () => {
         value={country}
         onChange={(e) => setCountry(e.target.value)}
       >
-        <option
-          style={{ marginBottom: "1rem", padding: "1rem" }}
-          value=""
-        >
+        <option style={{ marginBottom: "1rem", padding: "1rem" }} value="">
           choose country
         </option>
 
@@ -174,7 +173,7 @@ const AddProduct = () => {
         onChange={(e) => setName(e.target.value)}
         style={{ marginBottom: "1rem", padding: "1rem" }}
         type="text"
-        placeholder="name"
+        placeholder="title"
       />
 
       <input
@@ -198,36 +197,85 @@ const AddProduct = () => {
 
       <div style={{ display: "flex", flexDirection: "column" }}>
         <p align="center">guests</p>
-        <button onClick={decrementGuestCount}>MINUS</button>
-        <p align="center"> {guestCount}</p>
-        <button onClick={incrementGuestCount}>PLUS</button>
+        <button
+          onClick={decrementGuestCount}
+          style={{ padding: "1rem", backgroundColor: "aqua" }}
+        >
+          MINUS
+        </button>
+        <p style={{ fontSize: "2rem", color: "violet" }} align="center">
+          {" "}
+          {guestCount}
+        </p>
+        <button
+          onClick={incrementGuestCount}
+          style={{ padding: "1rem", backgroundColor: "aqua" }}
+        >
+          PLUS
+        </button>
       </div>
       <br />
       <br />
 
       <div style={{ display: "flex", flexDirection: "column" }}>
         <p align="center">bedrooms</p>
-        <button onClick={decrementBedroomsCount}>MINUS</button>
-        <p align="center">{bedroomsCount}</p>
-        <button onClick={incrementBedroomsCount}>PLUS</button>
+        <button
+          onClick={decrementBedroomsCount}
+          style={{ padding: "1rem", backgroundColor: "aqua" }}
+        >
+          MINUS
+        </button>
+        <p style={{ fontSize: "2rem", color: "violet" }} align="center">
+          {bedroomsCount}
+        </p>
+        <button
+          onClick={incrementBedroomsCount}
+          style={{ padding: "1rem", backgroundColor: "aqua" }}
+        >
+          PLUS
+        </button>
       </div>
       <br />
       <br />
 
       <div style={{ display: "flex", flexDirection: "column" }}>
         <p align="center">beds</p>
-        <button onClick={decrementBedsCount}>MINUS</button>
-        <p align="center">{bedsCount}</p>
-        <button onClick={incrementBedsCount}>PLUS</button>
+        <button
+          onClick={decrementBedsCount}
+          style={{ padding: "1rem", backgroundColor: "aqua" }}
+        >
+          MINUS
+        </button>
+        <p style={{ fontSize: "2rem", color: "violet" }} align="center">
+          {bedsCount}
+        </p>
+        <button
+          onClick={incrementBedsCount}
+          style={{ padding: "1rem", backgroundColor: "aqua" }}
+        >
+          PLUS
+        </button>
       </div>
       <br />
       <br />
 
       <div style={{ display: "flex", flexDirection: "column" }}>
         <p align="center">bathrooms</p>
-        <button onClick={decrementBathroomsCount}>MINUS</button>
-        <p align="center">{bathroomsCount}</p>
-        <button onClick={incrementBathroomsCount}>PLUS</button>
+        <button
+          onClick={decrementBathroomsCount}
+          style={{ padding: "1rem", backgroundColor: "aqua" }}
+        >
+          MINUS
+        </button>
+        <p style={{ fontSize: "2rem", color: "violet" }} align="center">
+          {bathroomsCount}
+        </p>
+        <button
+          onClick={incrementBathroomsCount}
+          style={{ padding: "1rem", backgroundColor: "aqua" }}
+        >
+          PLUS
+        </button>
       </div>
       <br />
       <br />
@@ -321,11 +369,13 @@ const AddProduct = () => {
 
       {imgs?.map((img) => (
         <img key={img} src={img} alt="error" />
+        // <ProductCard key={img.id}/>
       ))}
 
-      <button onClick={() => setStock(!stock)}>
+      <button onClick={() => setStock(!stock)} style={{ padding: "1rem" }}>
         {stock ? "active" : "disabled"}
       </button>
+      <br />
 
       <button onClick={handleSave} style={{ padding: "1rem" }}>
         Add Product

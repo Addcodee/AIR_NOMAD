@@ -1,10 +1,5 @@
 import axios from "axios";
-import React, {
-  createContext,
-  useContext,
-  useReducer,
-  useState,
-} from "react";
+import React, { createContext, useContext, useReducer, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 export const productContext = createContext();
@@ -16,7 +11,7 @@ const INIT_STATE = {
   products: [],
   categories: [],
   countries: [],
-  oneProduct: {},
+  oneProduct: null,
 };
 
 function reducer(state = INIT_STATE, action) {
@@ -29,6 +24,7 @@ function reducer(state = INIT_STATE, action) {
 
     case "GET_CATEGORIES":
       return { ...state, categories: action.payload };
+
     case "GET_COUNTRIES":
       return { ...state, countries: action.payload };
 
@@ -111,7 +107,7 @@ const ProductContextProvider = ({ children }) => {
   const getProducts = async () => {
     try {
       const res = await axios.get(`${API}/product/`);
-      console.log(res.data);
+      // console.log(res.data);
 
       dispatch({
         type: "GET_PRODUCTS",
@@ -159,12 +155,8 @@ const ProductContextProvider = ({ children }) => {
         },
       };
 
-      const res = await axios.post(
-        `${API}/product/`,
-        newProduct,
-        config
-      );
-      navigate("/products");
+      const res = await axios.post(`${API}/product/`, newProduct, config);
+      navigate("/houses");
     } catch (error) {
       console.log(error);
     }
@@ -195,7 +187,16 @@ const ProductContextProvider = ({ children }) => {
 
   const getOneProduct = async (id) => {
     try {
-      let res = await axios.get(`${API}/product/${id}/`);
+      const tokens = JSON.parse(localStorage.getItem("tokens"));
+      const Authorization = `Bearer ${tokens.access}`;
+
+      const config = {
+        headers: {
+          Authorization,
+        },
+      };
+
+      let res = await axios.get(`${API}/product/${id}/`, config);
 
       dispatch({
         type: "GET_ONE_PRODUCT",
@@ -208,29 +209,31 @@ const ProductContextProvider = ({ children }) => {
 
   // //! UPDATE PRODUCT
 
-  // const updateProduct = async (id, editedProduct) => {
-  //   try {
-  //     const tokens = JSON.parse(localStorage.getItem("tokens"));
-  //     const Authorization = `Bearer ${tokens.access}`;
+  const updateProduct = async (id, editedProduct) => {
+    try {
+      const tokens = JSON.parse(localStorage.getItem("tokens"));
+      const Authorization = `Bearer ${tokens.access}`;
 
-  //     const config = {
-  //       headers: {
-  //         Authorization,
-  //       },
-  //     };
+      const config = {
+        headers: {
+          Authorization,
+        },
+      };
 
-  //     let res = await axios.patch(
-  //       `${API}/products/${id}/`,
-  //       editedProduct,
-  //       config
-  //     );
+      let res = await axios.patch(
+        `${API}/product/${id}/`,
+        editedProduct,
+        config
+      );
 
-  //     navigate("/products");
-  //     console.log(res);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+      navigate("/houses");
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // console.log(state.categories);
 
   const values = {
     getProducts,
@@ -246,9 +249,10 @@ const ProductContextProvider = ({ children }) => {
     createProduct,
     deleteProduct,
 
+    // edit
     getOneProduct,
     oneProduct: state.oneProduct,
-    // updateProduct,
+    updateProduct,
 
     lang,
     setLang,
@@ -275,9 +279,7 @@ const ProductContextProvider = ({ children }) => {
   };
 
   return (
-    <productContext.Provider value={values}>
-      {children}
-    </productContext.Provider>
+    <productContext.Provider value={values}>{children}</productContext.Provider>
   );
 };
 

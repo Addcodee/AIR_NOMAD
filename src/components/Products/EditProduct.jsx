@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { useProduct } from "../../contexts/ProductContextProvider";
 
 const EditProduct = () => {
   const {
     getCategories,
     categories,
-    createProduct,
 
     getCountries,
     countries,
@@ -25,24 +25,24 @@ const EditProduct = () => {
     incrementBathroomsCount,
     decrementBathroomsCount,
     bathroomsCount,
+
+    getOneProduct,
+    oneProduct,
+    updateProduct,
   } = useProduct();
 
-  useEffect(() => {
-    getCategories();
-  }, []);
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    getCountries();
-  }, []);
+  const { id } = useParams();
 
   // дом , ферма ...
   const [category, setCategory] = useState("");
   const [country, setCountry] = useState("");
+  const [city, setCity] = useState("");
   const [name, setName] = useState("");
   const [street, setStreet] = useState("");
   const [houseNumber, setHouseNumber] = useState("");
   const [flatNumber, setFlatNumber] = useState("");
-  const [city, setCity] = useState("");
 
   const [stock, setStock] = useState(false);
 
@@ -61,6 +61,43 @@ const EditProduct = () => {
 
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
+
+  // стейты для guests,beds,bathrooms,bedrooms
+
+  const [newGuestCount, setNewGuestCount] = useState(1);
+  const [newBedroomsCount, setNewBedroomsCount] = useState(1);
+  const [newBedsCount, setNewBedsCount] = useState(1);
+  const [newBathroomsCount, setNewBathroomsCount] = useState(1);
+
+  useEffect(() => {
+    getCategories();
+    getOneProduct(id);
+  }, []);
+
+  useEffect(() => {
+    getCountries();
+  }, []);
+
+  useEffect(() => {
+    if (oneProduct) {
+      setCategory(oneProduct.category);
+      setCountry(oneProduct.country_category);
+      setCity(oneProduct.city);
+      setName(oneProduct.title);
+      setStreet(oneProduct.address);
+      setHouseNumber(oneProduct.house_number);
+      setFlatNumber(oneProduct.flat_number);
+      setDescription(oneProduct.description);
+      setPrice(oneProduct.price);
+      setNewGuestCount(oneProduct.guests);
+      setNewBedroomsCount(oneProduct.rooms);
+      setNewBedsCount(oneProduct.beds);
+      setNewBathroomsCount(oneProduct.bathrooms);
+    }
+  }, [oneProduct]);
+
+  console.log(oneProduct);
+
   const checkFoto = (e) => {
     setImgsToBack(e.target.files);
     const files = e.target.files;
@@ -101,8 +138,10 @@ const EditProduct = () => {
     newProduct.append("description", description);
     newProduct.append("price", Number(price));
 
-    createProduct(newProduct);
+    updateProduct(id, newProduct);
   }
+
+  // console.log(guestCount);
 
   return (
     <div
@@ -111,6 +150,7 @@ const EditProduct = () => {
         flexDirection: "column",
         width: "50%",
         margin: "auto",
+        paddingTop: "5rem",
       }}
     >
       <select
@@ -118,10 +158,7 @@ const EditProduct = () => {
         value={category}
         onChange={(e) => setCategory(e.target.value)}
       >
-        <option
-          style={{ marginBottom: "1rem", padding: "1rem" }}
-          value=""
-        >
+        <option style={{ marginBottom: "1rem", padding: "1rem" }} value="">
           select category for rent
         </option>
 
@@ -137,10 +174,7 @@ const EditProduct = () => {
         value={country}
         onChange={(e) => setCountry(e.target.value)}
       >
-        <option
-          style={{ marginBottom: "1rem", padding: "1rem" }}
-          value=""
-        >
+        <option style={{ marginBottom: "1rem", padding: "1rem" }} value="">
           choose country
         </option>
 
@@ -152,6 +186,7 @@ const EditProduct = () => {
       </select>
 
       <input
+        value={city}
         onChange={(e) => setCity(e.target.value)}
         style={{ marginBottom: "1rem", padding: "1rem" }}
         type="text"
@@ -159,69 +194,122 @@ const EditProduct = () => {
       />
 
       <input
+        value={name}
         onChange={(e) => setName(e.target.value)}
         style={{ marginBottom: "1rem", padding: "1rem" }}
         type="text"
-        placeholder="name"
+        placeholder="title"
       />
 
       <input
+        value={street}
         onChange={(e) => setStreet(e.target.value)}
         style={{ marginBottom: "1rem", padding: "1rem" }}
         type="text"
         placeholder="street"
       />
       <input
+        value={houseNumber}
         onChange={(e) => setHouseNumber(e.target.value)}
         style={{ marginBottom: "1rem", padding: "1rem" }}
         type="text"
         placeholder="houseNumber"
       />
       <input
+        value={flatNumber}
         onChange={(e) => setFlatNumber(e.target.value)}
         style={{ marginBottom: "1rem", padding: "1rem" }}
         type="text"
         placeholder="flat_number"
       />
 
-      {/* <input
-        onChange={(e) => setGuest(e.target.value)}
-        style={{ marginBottom: "1rem", padding: "1rem" }}
-        type="text"
-        placeholder="guests"
-      /> */}
       <div style={{ display: "flex", flexDirection: "column" }}>
         <p align="center">guests</p>
-        <button onClick={decrementGuestCount}>MINUS</button>
-        <p align="center"> {guestCount}</p>
-        <button onClick={incrementGuestCount}>PLUS</button>
+        <button
+          onClick={decrementGuestCount}
+          style={{ padding: "1rem", backgroundColor: "aqua" }}
+        >
+          MINUS
+        </button>
+
+        <p
+          value={newGuestCount}
+          style={{ fontSize: "2rem", color: "violet" }}
+          align="center"
+        >
+          {" "}
+          {guestCount}
+        </p>
+
+        <button
+          onClick={incrementGuestCount}
+          style={{ padding: "1rem", backgroundColor: "aqua" }}
+        >
+          PLUS
+        </button>
       </div>
       <br />
       <br />
 
       <div style={{ display: "flex", flexDirection: "column" }}>
         <p align="center">bedrooms</p>
-        <button onClick={decrementBedroomsCount}>MINUS</button>
-        <p align="center">{bedroomsCount}</p>
-        <button onClick={incrementBedroomsCount}>PLUS</button>
+        <button
+          onClick={decrementBedroomsCount}
+          style={{ padding: "1rem", backgroundColor: "aqua" }}
+        >
+          MINUS
+        </button>
+        <p style={{ fontSize: "2rem", color: "violet" }} align="center">
+          {bedroomsCount}
+        </p>
+        <button
+          onClick={incrementBedroomsCount}
+          style={{ padding: "1rem", backgroundColor: "aqua" }}
+        >
+          PLUS
+        </button>
       </div>
       <br />
       <br />
 
       <div style={{ display: "flex", flexDirection: "column" }}>
         <p align="center">beds</p>
-        <button onClick={decrementBedsCount}>MINUS</button>
-        <p align="center">{bedsCount}</p>
-        <button onClick={incrementBedsCount}>PLUS</button>
+        <button
+          onClick={decrementBedsCount}
+          style={{ padding: "1rem", backgroundColor: "aqua" }}
+        >
+          MINUS
+        </button>
+        <p style={{ fontSize: "2rem", color: "violet" }} align="center">
+          {bedsCount}
+        </p>
+        <button
+          onClick={incrementBedsCount}
+          style={{ padding: "1rem", backgroundColor: "aqua" }}
+        >
+          PLUS
+        </button>
       </div>
       <br />
       <br />
 
       <div style={{ display: "flex", flexDirection: "column" }}>
         <p align="center">bathrooms</p>
-        <button onClick={decrementBathroomsCount}>MINUS</button>
-        <p align="center">{bathroomsCount}</p>
-        <button onClick={incrementBathroomsCount}>PLUS</button>
+        <button
+          onClick={decrementBathroomsCount}
+          style={{ padding: "1rem", backgroundColor: "aqua" }}
+        >
+          MINUS
+        </button>
+        <p style={{ fontSize: "2rem", color: "violet" }} align="center">
+          {bathroomsCount}
+        </p>
+        <button
+          onClick={incrementBathroomsCount}
+          style={{ padding: "1rem", backgroundColor: "aqua" }}
+        >
+          PLUS
+        </button>
       </div>
       <br />
       <br />
@@ -292,12 +380,14 @@ const EditProduct = () => {
       <br />
 
       <input
+        value={description}
         onChange={(e) => setDescription(e.target.value)}
         style={{ marginBottom: "1rem", padding: "1rem" }}
         type="text"
         placeholder="description"
       />
       <input
+        value={price}
         onChange={(e) => setPrice(e.target.value)}
         style={{ marginBottom: "1rem", padding: "1rem" }}
         type="text"
@@ -317,12 +407,13 @@ const EditProduct = () => {
         <img key={img} src={img} alt="error" />
       ))}
 
-      <button onClick={() => setStock(!stock)}>
+      <button onClick={() => setStock(!stock)} style={{ padding: "1rem" }}>
         {stock ? "active" : "disabled"}
       </button>
+      <br />
 
       <button onClick={handleSave} style={{ padding: "1rem" }}>
-        Add Product
+        Save
       </button>
     </div>
   );
