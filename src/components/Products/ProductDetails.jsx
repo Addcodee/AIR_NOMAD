@@ -12,6 +12,7 @@ const ProductDetails = () => {
     getOneProduct(id);
   }, []);
   console.log(oneProduct);
+
   return (
     <div>
       <div style={{ paddingTop: "5rem" }}>
