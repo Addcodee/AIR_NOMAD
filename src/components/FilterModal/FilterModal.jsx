@@ -13,8 +13,16 @@ import canada from "../../assets/canada.png";
 import italy from "../../assets/italy.png";
 import bali from "../../assets/bali.png";
 
-const FilterModal = () => {
-  const { openFilter, setOpenFilter } = useProduct();
+const FilterModal = ({ obj }) => {
+  const {
+    openFilter,
+    setOpenFilter,
+    getProducts,
+    setHouseCategory,
+    houseCategory,
+    setCountryCategory,
+    countryCategory,
+  } = useProduct();
 
   const [selectedHouse, setSelectedHouse] = useState(false);
   const [selectedApartment, setSelectedApartment] = useState(false);
@@ -28,6 +36,18 @@ const FilterModal = () => {
   const [selectedKyrgyzstan, setSelectedKyrgyzstan] = useState(false);
   const [selectedCanada, setSelectedCanada] = useState(false);
   const [selectedBali, setSelectedBali] = useState(false);
+
+  const handleValueFromCategory = (e) => {
+    setHouseCategory(e);
+  };
+
+  const handleValueFromCountry = (e) => {
+    setCountryCategory(e);
+  };
+
+  useEffect(() => {
+    getProducts();
+  }, [houseCategory, countryCategory]);
 
   return (
     <div
@@ -54,7 +74,14 @@ const FilterModal = () => {
             <h2>House Category</h2>
             <div className="house__category-container">
               <div
-                onClick={() => setSelectedHouse(!selectedHouse)}
+                onClick={() => {
+                  setSelectedHouse(!selectedHouse);
+                  if (houseCategory) {
+                    handleValueFromCategory("");
+                  } else {
+                    handleValueFromCategory("house");
+                  }
+                }}
                 className={selectedHouse ? "house__clicked" : "house"}
               >
                 <img
@@ -66,9 +93,14 @@ const FilterModal = () => {
               </div>
 
               <div
-                onClick={() =>
-                  setSelectedApartment(!selectedApartment)
-                }
+                onClick={() => {
+                  setSelectedApartment(!selectedApartment);
+                  if (houseCategory) {
+                    handleValueFromCategory("");
+                  } else {
+                    handleValueFromCategory("apartment");
+                  }
+                }}
                 className={
                   selectedApartment ? "house__clicked" : "house"
                 }
@@ -82,7 +114,14 @@ const FilterModal = () => {
               </div>
 
               <div
-                onClick={() => setSelectedYurt(!selectedYurt)}
+                onClick={() => {
+                  setSelectedYurt(!selectedYurt);
+                  if (houseCategory) {
+                    handleValueFromCategory("");
+                  } else {
+                    handleValueFromCategory("yurt");
+                  }
+                }}
                 className={selectedYurt ? "house__clicked" : "house"}
               >
                 <img className="house__img" src={yurt} alt={"yurt"} />
@@ -90,7 +129,14 @@ const FilterModal = () => {
               </div>
 
               <div
-                onClick={() => setSelectedCamp(!selectedCamp)}
+                onClick={() => {
+                  setSelectedCamp(!selectedCamp);
+                  if (houseCategory) {
+                    handleValueFromCategory("");
+                  } else {
+                    handleValueFromCategory("auto-house");
+                  }
+                }}
                 className={selectedCamp ? "house__clicked" : "house"}
               >
                 <img className="house__img" src={camp} alt={"camp"} />
@@ -98,7 +144,14 @@ const FilterModal = () => {
               </div>
 
               <div
-                onClick={() => setSelectedGlamp(!selectedGlamp)}
+                onClick={() => {
+                  setSelectedGlamp(!selectedGlamp);
+                  if (houseCategory) {
+                    handleValueFromCategory("");
+                  } else {
+                    handleValueFromCategory("glamping");
+                  }
+                }}
                 className={selectedGlamp ? "house__clicked" : "house"}
               >
                 <img
@@ -117,9 +170,14 @@ const FilterModal = () => {
             <h2>Country Category</h2>
             <div className="country__category-container">
               <div
-                onClick={() =>
-                  setSelectedSwitzerland(!selectedSwitzerland)
-                }
+                onClick={() => {
+                  setSelectedSwitzerland(!selectedSwitzerland);
+                  if (countryCategory) {
+                    handleValueFromCountry("");
+                  } else {
+                    handleValueFromCountry("switzerland");
+                  }
+                }}
                 className={
                   selectedSwitzerland ? "country__clicked" : "country"
                 }
@@ -133,9 +191,14 @@ const FilterModal = () => {
               </div>
 
               <div
-                onClick={() =>
-                  setSelectedItaly(!selectedItaly)
-                }
+                onClick={() => {
+                  setSelectedItaly(!selectedItaly);
+                  if (countryCategory) {
+                    handleValueFromCountry("");
+                  } else {
+                    handleValueFromCountry("italy");
+                  }
+                }}
                 className={
                   selectedItaly ? "country__clicked" : "country"
                 }
@@ -149,7 +212,14 @@ const FilterModal = () => {
               </div>
 
               <div
-                onClick={() => setSelectedKyrgyzstan(!selectedKyrgyzstan)}
+                onClick={() => {
+                  setSelectedKyrgyzstan(!selectedKyrgyzstan);
+                  if (countryCategory) {
+                    handleValueFromCountry("");
+                  } else {
+                    handleValueFromCountry("kyrgyzstan");
+                  }
+                }}
                 className={
                   selectedKyrgyzstan ? "country__clicked" : "country"
                 }
@@ -163,7 +233,14 @@ const FilterModal = () => {
               </div>
 
               <div
-                onClick={() => setSelectedCanada(!selectedCanada)}
+                onClick={() => {
+                  setSelectedCanada(!selectedCanada);
+                  if (countryCategory) {
+                    handleValueFromCountry("");
+                  } else {
+                    handleValueFromCountry("canada");
+                  }
+                }}
                 className={
                   selectedCanada ? "country__clicked" : "country"
                 }
@@ -177,12 +254,23 @@ const FilterModal = () => {
               </div>
 
               <div
-                onClick={() => setSelectedBali(!selectedBali)}
+                onClick={() => {
+                  setSelectedBali(!selectedBali);
+                  if (countryCategory) {
+                    handleValueFromCountry("");
+                  } else {
+                    handleValueFromCountry("bali");
+                  }
+                }}
                 className={
                   selectedBali ? "country__clicked" : "country"
                 }
               >
-                <img className="country__img" src={bali} alt={"bali"} />
+                <img
+                  className="country__img"
+                  src={bali}
+                  alt={"bali"}
+                />
                 <span>Bali</span>
               </div>
             </div>
