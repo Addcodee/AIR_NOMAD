@@ -64,36 +64,34 @@ const CartContextProvider = ({ children }) => {
 
   //? removeProductInCart
 
-  // function removeProductInCart(id) {
-  //   let cart = JSON.parse(localStorage.getItem("cart"));
+  function removeProductInCart(id) {
+    let cart = JSON.parse(localStorage.getItem("cart"));
 
-  //   cart.products = cart.products.filter(
-  //     (obj) => obj.product.id !== id
-  //   );
+    cart.products = cart.products.filter(
+      (obj) => obj.id !== id
+    );
 
-  //   cart.totalPrice = calcTotalPrice(cart.products);
+    localStorage.setItem("cart", JSON.stringify(cart));
 
-  //   localStorage.setItem("cart", JSON.stringify(cart));
-
-  //   dispatch({
-  //     type: CART.GET_CART,
-  //     payload: cart,
-  //   });
-  // }
+    dispatch({
+      type: "GET_CART",
+      payload: cart,
+    });
+  }
 
   //? removeAllProductsInCart
 
-  // function removeAllProductsInCart() {
-  //   localStorage.removeItem("cart");
-  //   getProductsFromCart();
-  // }
+  function removeAllProductsInCart() {
+    localStorage.removeItem("cart");
+    getProductsFromCart();
+  }
 
   const values = {
     getProductsFromCart,
     addProductToCart,
     cart: state.cart,
-    // removeAllProductsInCart,
-    // removeProductInCart,
+    removeAllProductsInCart,
+    removeProductInCart,
   };
   return (
     <cartContext.Provider value={values}>

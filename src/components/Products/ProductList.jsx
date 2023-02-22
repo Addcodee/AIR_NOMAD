@@ -22,8 +22,8 @@ const ProductList = () => {
   };
 
   const currentData = () => {
-    const begin = (currentPage - 1) * 3;
-    const end = begin + 3;
+    const begin = (currentPage - 1) * 4;
+    const end = begin + 4;
     return products.slice(begin, end);
   };
 
@@ -47,7 +47,7 @@ const ProductList = () => {
           justifyContent: "center",
           position: "absolute",
           width: "100%",
-          zIndex: '-1'
+          zIndex: "-1",
         }}
       >
         <Pagination
