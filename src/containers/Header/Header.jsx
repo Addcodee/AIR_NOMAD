@@ -12,9 +12,9 @@ const Header = () => {
       <div className="header__title">
         <h1>
           {lang
-            ? "We offer you the best places to stay"
-            : "Мы предлагаем вам наилучшие места для отдыха"}
-          !
+            ? "We offer the best places to stay!"
+            : "Мы предлагаем лучшие места!"}
+          
         </h1>
       </div>
     </div>
