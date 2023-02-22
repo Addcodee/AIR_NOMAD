@@ -26,7 +26,7 @@ function reducer(state = INIT_STATE, action) {
       return {
         ...state,
         products: action.payload.results, // если не будет работать , удалить results
-        pages: Math.ceil(action.payload.count / 3),
+        pages: Math.ceil(action.payload.count / 4),
       };
 
     case "GET_CATEGORIES":

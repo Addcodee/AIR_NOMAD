@@ -4,7 +4,12 @@ import { useCart } from "../../contexts/CartContextProvider";
 import "./Cart.css";
 
 const Cart = () => {
-  const { getProductsFromCart, cart } = useCart();
+  const {
+    getProductsFromCart,
+    cart,
+    removeAllProductsInCart,
+    removeProductInCart,
+  } = useCart();
   useEffect(() => {
     getProductsFromCart();
   }, []);
@@ -14,6 +19,19 @@ const Cart = () => {
       <div className="cart__title">
         <h2>Wish List</h2>
       </div>
+      <button
+        onClick={removeAllProductsInCart}
+        style={{
+          border: "none",
+          backgroundColor: "white",
+          color: "red",
+          fontSize: "16px",
+          marginBottom: "1rem",
+          cursor: "pointer",
+        }}
+      >
+        Delete All
+      </button>
       <div className="cart__container">
         <Paper className="cart__paper">
           {cart.products.map((obj) => (
@@ -33,6 +51,19 @@ const Cart = () => {
                   alt="img"
                 />
               </div>
+              <button
+                onClick={() => removeProductInCart(obj.id)}
+                style={{
+                  border: "none",
+                  backgroundColor: "white",
+                  color: "red",
+                  fontSize: "16px",
+                  marginBottom: "1rem",
+                  cursor: "pointer",
+                }}
+              >
+                Delete Wish
+              </button>
             </div>
           ))}
         </Paper>
