@@ -1,9 +1,17 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { useProduct } from "../../contexts/ProductContextProvider";
 import "./Filter.css";
 
 const Filter = () => {
-  const { setOpenFilter, openFilter } = useProduct();
+  const { setOpenFilter, openFilter, getProducts } = useProduct();
+
+  const [searchValue, setSearchValue] = useState("");
+
+  useEffect(() => {
+    getProducts(searchValue);
+  }, [searchValue]);
+
   return (
     <div className="filter">
       <div className="filter__container">
@@ -12,7 +20,12 @@ const Filter = () => {
         </div>
         <div className="filter__line"></div>
         <div>
-          <input type="text" placeholder="Search..."/>
+          <input
+            value={searchValue}
+            onChange={(e) => setSearchValue(e.target.value)}
+            type="text"
+            placeholder="Search..."
+          />
         </div>
       </div>
     </div>

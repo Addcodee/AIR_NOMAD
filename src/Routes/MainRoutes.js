@@ -10,6 +10,7 @@ import LoginPage from "../Pages/LoginPage/LoginPage";
 import ProductDetails from "../components/Products/ProductDetails";
 import { useAuth } from "../contexts/AuthContextProvider";
 import EditProduct from "../components/Products/EditProduct";
+import CartPage from "../Pages/CartPage/CartPage";
 
 const MainRoutes = () => {
   const { checkAuth } = useAuth();
@@ -26,7 +27,8 @@ const MainRoutes = () => {
     { path: "/edit/:id", element: <EditProduct />, id: 5 },
     { path: "/details/:id", element: <ProductDetails />, id: 6 },
     { path: "/houses", element: <ProductPage />, id: 7 },
-    { path: "*", element: <NotFoundPage />, id: 8 },
+    { path: "/cart", element: <CartPage />, id: 8 },
+    { path: "*", element: <NotFoundPage />, id: 9 },
   ];
   return (
     <>

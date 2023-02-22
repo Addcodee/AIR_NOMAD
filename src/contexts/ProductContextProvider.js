@@ -1,5 +1,10 @@
 import axios from "axios";
-import React, { createContext, useContext, useReducer, useState } from "react";
+import React, {
+  createContext,
+  useContext,
+  useReducer,
+  useState,
+} from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 export const productContext = createContext();
@@ -11,7 +16,8 @@ const INIT_STATE = {
   products: [],
   categories: [],
   countries: [],
-  oneProduct: null,
+  oneProduct: {},
+  pages: 0,
 };
 
 function reducer(state = INIT_STATE, action) {
@@ -19,7 +25,8 @@ function reducer(state = INIT_STATE, action) {
     case "GET_PRODUCTS":
       return {
         ...state,
-        products: action.payload, // если не будет работать , удалить results
+        products: action.payload.results, // если не будет работать , удалить results
+        pages: Math.ceil(action.payload.count / 3),
       };
 
     case "GET_CATEGORIES":
@@ -50,9 +57,15 @@ const ProductContextProvider = ({ children }) => {
   const [bedsCount, setBedsCount] = useState(1);
   const [bathroomsCount, setBathroomsCount] = useState(1);
 
+  const [houseCategory, setHouseCategory] = useState("");
+
+  const [countryCategory, setCountryCategory] = useState("");
+
   const navigate = useNavigate();
 
   const [state, dispatch] = useReducer(reducer, INIT_STATE);
+
+  const [loader, setLoader] = useState(false);
 
   // для изменения стейтов на кол-во гостей, спален, кроватей, ванных
 
@@ -104,14 +117,15 @@ const ProductContextProvider = ({ children }) => {
     }
   };
 
-  const getProducts = async () => {
+  const getProducts = async (value = "") => {
     try {
-      const res = await axios.get(`${API}/product/?country_category&&category=`);
-      console.log(res.data);
+      const res = await axios.get(
+        `${API}/product/?search=${value}&&category=${houseCategory}&&country_category=${countryCategory}`
+      );
 
       dispatch({
         type: "GET_PRODUCTS",
-        payload: res.data.results,
+        payload: res.data,
       });
     } catch (error) {
       console.log(error);
@@ -155,7 +169,7 @@ const ProductContextProvider = ({ children }) => {
         },
       };
 
-      const res = await axios.post(`${API}/product/`, newProduct, config);
+      await axios.post(`${API}/product/`, newProduct, config);
       navigate("/houses");
     } catch (error) {
       console.log(error);
@@ -187,16 +201,9 @@ const ProductContextProvider = ({ children }) => {
 
   const getOneProduct = async (id) => {
     try {
-      const tokens = JSON.parse(localStorage.getItem("tokens"));
-      const Authorization = `Bearer ${tokens.access}`;
+      setLoader(true);
 
-      const config = {
-        headers: {
-          Authorization,
-        },
-      };
-
-      let res = await axios.get(`${API}/product/${id}/`, config);
+      let res = await axios.get(`${API}/product/${id}/`);
 
       dispatch({
         type: "GET_ONE_PRODUCT",
@@ -204,6 +211,8 @@ const ProductContextProvider = ({ children }) => {
       });
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoader(false);
     }
   };
 
@@ -232,8 +241,6 @@ const ProductContextProvider = ({ children }) => {
       console.log(error);
     }
   };
-
-  // console.log(state.categories);
 
   const values = {
     getProducts,
@@ -276,10 +283,20 @@ const ProductContextProvider = ({ children }) => {
 
     openFilter,
     setOpenFilter,
+
+    houseCategory,
+    setHouseCategory,
+
+    countryCategory,
+    setCountryCategory,
+
+    pages: state.pages,
   };
 
   return (
-    <productContext.Provider value={values}>{children}</productContext.Provider>
+    <productContext.Provider value={values}>
+      {children}
+    </productContext.Provider>
   );
 };
 

@@ -12,7 +12,10 @@ export default function ProductCard({ obj }) {
   const navigate = useNavigate();
 
   return (
-    <div className="card" onClick={() => navigate(`/details/${obj.id}`)}>
+    <div
+      className="card"
+      onClick={() => navigate(`/details/${obj.id}`)}
+    >
       <CardMedia
         sx={{ height: 250, borderRadius: "1em" }}
         image={obj.image1}

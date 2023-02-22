@@ -29,6 +29,9 @@ const BurgerMenu = () => {
         <div id="start__page" className="burgerMenu-item">
           <span>GET STARTED</span>
         </div>
+        <div onClick={() => navigate('/cart')} className="burgerMenu-item">
+          <span>WISH LIST</span>
+        </div>
         <div
           onClick={() => navigate("/homes")}
           className="burgerMenu-item"

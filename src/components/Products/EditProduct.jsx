@@ -93,6 +93,7 @@ const EditProduct = () => {
       setNewBedroomsCount(oneProduct.rooms);
       setNewBedsCount(oneProduct.beds);
       setNewBathroomsCount(oneProduct.bathrooms);
+      
     }
   }, [oneProduct]);
 
@@ -119,10 +120,6 @@ const EditProduct = () => {
     newProduct.append("beds", Number(bedsCount));
     newProduct.append("rooms", Number(bedroomsCount));
     newProduct.append("bathrooms", Number(bathroomsCount));
-
-    newProduct.append("image1", imgsToBack[0]);
-    newProduct.append("image2", imgsToBack[1]);
-    newProduct.append("image3", imgsToBack[2]);
 
     newProduct.append("stock", stock);
 
@@ -158,7 +155,10 @@ const EditProduct = () => {
         value={category}
         onChange={(e) => setCategory(e.target.value)}
       >
-        <option style={{ marginBottom: "1rem", padding: "1rem" }} value="">
+        <option
+          style={{ marginBottom: "1rem", padding: "1rem" }}
+          value=""
+        >
           select category for rent
         </option>
 
@@ -174,7 +174,10 @@ const EditProduct = () => {
         value={country}
         onChange={(e) => setCountry(e.target.value)}
       >
-        <option style={{ marginBottom: "1rem", padding: "1rem" }} value="">
+        <option
+          style={{ marginBottom: "1rem", padding: "1rem" }}
+          value=""
+        >
           choose country
         </option>
 
@@ -259,7 +262,10 @@ const EditProduct = () => {
         >
           MINUS
         </button>
-        <p style={{ fontSize: "2rem", color: "violet" }} align="center">
+        <p
+          style={{ fontSize: "2rem", color: "violet" }}
+          align="center"
+        >
           {bedroomsCount}
         </p>
         <button
@@ -280,7 +286,10 @@ const EditProduct = () => {
         >
           MINUS
         </button>
-        <p style={{ fontSize: "2rem", color: "violet" }} align="center">
+        <p
+          style={{ fontSize: "2rem", color: "violet" }}
+          align="center"
+        >
           {bedsCount}
         </p>
         <button
@@ -301,7 +310,10 @@ const EditProduct = () => {
         >
           MINUS
         </button>
-        <p style={{ fontSize: "2rem", color: "violet" }} align="center">
+        <p
+          style={{ fontSize: "2rem", color: "violet" }}
+          align="center"
+        >
           {bathroomsCount}
         </p>
         <button
@@ -407,7 +419,10 @@ const EditProduct = () => {
         <img key={img} src={img} alt="error" />
       ))}
 
-      <button onClick={() => setStock(!stock)} style={{ padding: "1rem" }}>
+      <button
+        onClick={() => setStock(!stock)}
+        style={{ padding: "1rem" }}
+      >
         {stock ? "active" : "disabled"}
       </button>
       <br />
